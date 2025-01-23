@@ -1,0 +1,10 @@
+Entidades:
+
+Usuario -> id(pk), nombre, apellido, fecha_nacimiento, sexo, nacionalidad, password, correo
+Ciudad -> Pais, Lista de Actividades, nombre
+Pais -> Lista de Ciudades, nombre
+Actividad -> nombre, precio, Direccion, horario, extends (Ocio, Restaurante, Monumentos, Cultura, Actividades, Alojamiento, Vuelos)
+Direccion -> calle, codigo_postal, ciudad
+Vuelos -> Origen, Destino
+
+Metodos:
