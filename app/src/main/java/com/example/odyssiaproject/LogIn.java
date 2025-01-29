@@ -1,6 +1,10 @@
 package com.example.odyssiaproject;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +19,23 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        EditText userField = findViewById(R.id.userField);
+        EditText passField = findViewById(R.id.passField);
+        Button buttonRegister = findViewById(R.id.buttonRegister);
+        Button buttonRecover = findViewById(R.id.buttonRecover);
+        Button buttonNext = findViewById(R.id.buttonNext);
+
+        buttonNext.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            startActivity(intent);
+        });
+
+
+
     }
 }
