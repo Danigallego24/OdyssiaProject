@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +29,13 @@ public class LogIn extends AppCompatActivity {
         EditText passField = findViewById(R.id.passField);
         Button buttonRegister = findViewById(R.id.buttonRegister);
         Button buttonRecover = findViewById(R.id.buttonRecover);
-        Button buttonNext = findViewById(R.id.buttonNext);
+        ImageButton buttonNext = findViewById(R.id.buttonNext);
 
         buttonNext.setOnClickListener(v -> {
-            Intent intent = new Intent();
+
+            Intent intent = new Intent(LogIn.this,MainActivity.class);
             startActivity(intent);
+            finish();
         });
 
 
