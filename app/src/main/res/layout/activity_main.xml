@@ -5,15 +5,70 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D6E9FF"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Search Field -->
+    <EditText
+        android:id="@+id/searchField"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/textsearch"
+        android:hint="Search"
+        android:inputType="text"
+        android:paddingLeft="60dp"
+        android:textColor="#D4D4D4"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- RecyclerView Promotions -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rwPromotions"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        android:contentDescription="promociones"
+        android:layout_marginTop="70dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_promotions"/>
+
+    <!-- RecyclerView Countries -->
+
+    <ImageButton
+        android:id="@+id/buttonRegister"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/buttonsortby"
+        app:layout_constraintBottom_toTopOf="@+id/rwCountries"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rwPromotions"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rwCountries"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:contentDescription="paises"
+        android:layout_marginTop="50dp"
+        android:paddingTop="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/rwPromotions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_countries"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
