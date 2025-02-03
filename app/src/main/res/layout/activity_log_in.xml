@@ -1,86 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/odyssialoginpage"
+    android:background="#D6E9FF"
     tools:context=".LogIn">
 
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/odyssialogo"
+        app:layout_constraintBottom_toTopOf="@+id/userField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <!-- User Field -->
     <EditText
         android:id="@+id/userField"
         android:layout_width="350dp"
         android:layout_height="50dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/textuser"
         android:hint="User"
-        android:inputType="textEmailSubject"
+        android:inputType="text"
         android:paddingLeft="50dp"
         android:textColor="#D4D4D4"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintBottom_toTopOf="@+id/passField"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
+    <!-- Password Field -->
     <EditText
         android:id="@+id/passField"
         android:layout_width="350dp"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/textpassword"
         android:hint="Password"
-        android:inputType="textEmailSubject"
+        android:inputType="textPassword"
         android:paddingLeft="50dp"
         android:textColor="#D4D4D4"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintTop_toBottomOf="@id/userField"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userField"
-        app:layout_constraintVertical_bias="0.074" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Register Button -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:background="@android:color/transparent"
-        android:hint="Register"
-        android:padding="0dp"
-        android:textColorHint="@color/white"
+        android:text="Register"
+        android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passField"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintEnd_toStartOf="@+id/buttonRecover"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        android:layout_marginTop="20dp" />
 
+    <!-- Recover Password Button -->
     <Button
         android:id="@+id/buttonRecover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
         android:background="@android:color/transparent"
-        android:hint="Recover Password"
-        android:padding="0dp"
-        android:textColorHint="@color/white"
+        android:text="Recover Password"
+        android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passField"
+        app:layout_constraintStart_toEndOf="@+id/buttonRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        android:layout_marginTop="20dp" />
 
+    <!-- Next Button -->
     <ImageButton
         android:id="@+id/buttonNext"
         android:layout_width="120dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="224dp"
         android:background="@drawable/buttonnext"
+        android:contentDescription="boton para iniciar sesión"
+        app:layout_constraintTop_toBottomOf="@id/buttonRegister"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- Logo -->
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="70dp"
+        android:background="@drawable/odyssiatext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
