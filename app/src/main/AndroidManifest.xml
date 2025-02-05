@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,13 +23,9 @@
             android:name=".LogIn"
             android:exported="false" />
         <activity
-<<<<<<< HEAD
             android:name=".LoadingPage"
             android:exported="true" >
-=======
-            android:name=".MainActivity"
-            android:exported="true">
->>>>>>> GallegoBranch
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
