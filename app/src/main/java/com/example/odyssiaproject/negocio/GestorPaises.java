@@ -2,9 +2,8 @@ package com.example.odyssiaproject.negocio;
 
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
-import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 
-public class negocioPaises {
+public class GestorPaises {
     private ListaPaisesSingelton listaPaises;
     public int imagenPaises(Pais p){
         listaPaises = ListaPaisesSingelton.getInstance();
