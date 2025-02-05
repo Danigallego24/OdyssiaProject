@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OdyssiaProject</string>
+    <string name="title_activity_city">CityActivity</string>
 </resources>

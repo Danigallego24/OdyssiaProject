@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D6E9FF"
-    tools:context=".MainActivity">
+    tools:context=".CityActivity">
 
     <!-- Top menu -->
     <LinearLayout
@@ -68,26 +68,27 @@
         android:layout_height="50dp"
         android:background="@drawable/buttonsortby"
         android:contentDescription="sort by button"
-        app:layout_constraintBottom_toTopOf="@id/rwCountries"
+        app:layout_constraintBottom_toTopOf="@id/rwCities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rwPromotions"
         app:layout_constraintVertical_bias="0.2" />
 
-    <!-- RecyclerView Countries -->
+    <!-- RecyclerView Cities -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rwCountries"
+        android:id="@+id/rwCities"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="5dp"
         android:orientation="vertical"
         android:scrollbars="vertical"
+        app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/buttonSortBy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_countries"/>
+        tools:listitem="@layout/item_cities"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

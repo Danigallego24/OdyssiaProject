@@ -2,91 +2,20 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="400dp"
     android:layout_height="150dp"
     android:orientation="vertical"
     card_view:cardCornerRadius="15dp"
     android:layout_margin="6dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- SPAIN -->
-    <ImageView
-        android:id="@+id/cityImage"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/listaspain"
-        android:scaleType="centerCrop"/>
-
-    <!-- PORTUGAL -->
-    <ImageView
-        android:id="@+id/cityImage2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listaportugal"
-        android:scaleType="centerCrop"/>
-
-    <!-- NORWAY -->
-    <ImageView
-        android:id="@+id/cityImage3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listanorway"
-        android:scaleType="centerCrop"/>
-
-    <!-- GREECE -->
-    <ImageView
-        android:id="@+id/cityImage4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listagreece"
-        android:scaleType="centerCrop"/>
-
-    <!-- SWITZERLAND -->
-    <ImageView
-        android:id="@+id/cityImage5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listaswitzerland"
-        android:scaleType="centerCrop"/>
-
-    <!-- NETHERLANDS -->
-    <ImageView
-        android:id="@+id/cityImage6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listanetherlands"
-        android:scaleType="centerCrop"/>
-
-    <!-- ENGLAND -->
-    <ImageView
-        android:id="@+id/cityImage7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listaengland"
-        android:scaleType="centerCrop"/>
-
-    <!-- FRANCE -->
-    <ImageView
-        android:id="@+id/cityImage8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listafrance"
-        android:scaleType="centerCrop"/>
-
-    <!-- ITALY -->
-    <ImageView
-        android:id="@+id/cityImage9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listaitaly"
-        android:scaleType="centerCrop"/>
-
-    <!-- BELGIUM -->
-    <ImageView
-        android:id="@+id/cityImage10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/listabelgium"
-        android:scaleType="centerCrop"/>
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="countries buttons"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
 </androidx.cardview.widget.CardView>
