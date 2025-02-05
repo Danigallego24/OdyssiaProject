@@ -3,7 +3,7 @@ package com.example.odyssiaproject.negocio;
 import com.example.odyssiaproject.entidad.Promociones;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 
-public class negocioPromociones {
+public class GestorPromociones {
     private ListaPromocionesSingelton listaPromociones;
 
     public int imagenPromocion (Promociones p){

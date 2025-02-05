@@ -3,14 +3,14 @@ package com.example.odyssiaproject.adaptador;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Pais;
-import com.example.odyssiaproject.negocio.negocioPaises;
+import com.example.odyssiaproject.negocio.GestorPaises;
 
 import java.util.List;
 
@@ -21,11 +21,11 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
         this.listaPais = listaPaises;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imagenPais;
+        private ImageButton imagenPais;
 
         public ViewHolder(View v) {
             super(v);
-            imagenPais = v.findViewById(R.id.cityImage);
+            imagenPais = v.findViewById(R.id.imageCountries);
         }
     }
 
@@ -39,7 +39,7 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        negocioPaises nP = new negocioPaises();
+        GestorPaises nP = new GestorPaises();
         p = listaPais.get(position);
         if (nP.imagenPaises(p) == 1){
             holder.imagenPais.setImageResource(R.drawable.listaspain);
