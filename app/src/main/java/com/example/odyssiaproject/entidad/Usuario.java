@@ -2,8 +2,13 @@ package com.example.odyssiaproject.entidad;
 
 public class Usuario {
    private int id;
-   private String nombre, apellido, fechaNacimiento,nacionalidad, contraseña, correo;
+   private String nombre, apellido, fechaNacimiento,nacionalidad, contrasenia, correo;
    private Sexo sexo;
+
+   public Usuario(String correo, String contrasenia) {
+      this.contrasenia = contrasenia;
+      this.correo = correo;
+   }
 
    public int getId() {
       return id;
@@ -29,12 +34,12 @@ public class Usuario {
       this.fechaNacimiento = fechaNacimiento;
    }
 
-   public String getContraseña() {
-      return contraseña;
+   public String getContrasenia() {
+      return contrasenia;
    }
 
-   public void setContraseña(String contraseña) {
-      this.contraseña = contraseña;
+   public void setContrasenia(String contrasenia) {
+      this.contrasenia = contrasenia;
    }
 
    public String getCorreo() {
@@ -77,7 +82,7 @@ public class Usuario {
               ", apellido='" + apellido + '\'' +
               ", fechaNacimiento='" + fechaNacimiento + '\'' +
               ", nacionalidad='" + nacionalidad + '\'' +
-              ", contraseña='" + contraseña + '\'' +
+              ", contraseña='" + contrasenia + '\'' +
               ", correo='" + correo + '\'' +
               ", sexo=" + sexo +
               '}';

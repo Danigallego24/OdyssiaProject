@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.odyssiaproject.entidad.Usuario;
+import com.example.odyssiaproject.negocio.GestorUsuario;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LogIn extends AppCompatActivity {
 
@@ -25,20 +30,36 @@ public class LogIn extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        EditText userField = findViewById(R.id.userField);
-        EditText passField = findViewById(R.id.passField);
+        GestorUsuario gestorUsuario= new GestorUsuario();
+        EditText correoUser = findViewById(R.id.userField);
+        EditText pass = findViewById(R.id.passField);
         Button buttonRegister = findViewById(R.id.buttonRegister);
         Button buttonRecover = findViewById(R.id.buttonRecover);
         ImageButton buttonNext = findViewById(R.id.buttonNext);
 
         buttonNext.setOnClickListener(v -> {
 
-            Intent intent = new Intent(LogIn.this,MainActivity.class);
-            startActivity(intent);
-            finish();
+            String correo = correoUser.getText().toString().trim();
+            String contrasenia = pass.getText().toString().trim();
+
+            Usuario usuario = new Usuario(correo, contrasenia);
+
+            gestorUsuario.iniciarSesion(usuario, new GestorUsuario.OnLoginListener() {
+                @Override
+                public void onSuccess(FirebaseUser user) {
+                    Toast.makeText(LogIn.this, "Inicio de sesión exitoso: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                    // Redirigir a la actividad principal
+                    startActivity(new Intent(LogIn.this, MainActivity.class));
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Exception exception) {
+                    Toast.makeText(LogIn.this, "Error en el inicio de sesión: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
         });
 
-
+        });
 
     }
-}
+    }
