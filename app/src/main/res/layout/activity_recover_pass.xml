@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recover"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/odyssiarecoverpage"
+    tools:context=".RecoverPassActivity">
+
+    <ImageView
+        android:id="@+id/odyssiaRecoverText"
+        android:layout_width="334dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/odyssiarecovertext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_margin="7dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/emailRecover"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/textemail"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="50dp"
+        android:textColor="#D4D4D4"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/odyssiaRecoverText" />
+
+    <ImageButton
+        android:id="@+id/buttonRecover"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttonrecover"
+        android:contentDescription="boton para recuperar contraseña"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailRecover" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
