@@ -76,14 +76,13 @@ public class MainActivity extends AppCompatActivity {
     private Runnable scrollRunnable = new Runnable() {
         @Override
         public void run() {
-            recyclerViewPromociones.smoothScrollBy(scrollSpeed, 0); // Movimiento fluido
-
-            // Verificar si llegó al final para reiniciar
+            recyclerViewPromociones.smoothScrollBy(scrollSpeed, 0);
+            
             if (!recyclerViewPromociones.canScrollHorizontally(1)) {
-                recyclerViewPromociones.scrollToPosition(0); // Salto invisible al principio
+                recyclerViewPromociones.scrollToPosition(0);
             }
 
-            handler.postDelayed(this, 50); // Ajusta la frecuencia del movimiento
+            handler.postDelayed(this, 50);
         }
     };
 
