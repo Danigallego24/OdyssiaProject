@@ -1,9 +1,8 @@
 package com.example.odyssiaproject;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -30,11 +29,11 @@ public class LogIn extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        GestorUsuario gestorUsuario= new GestorUsuario();
+        GestorUsuario gestorUsuario = new GestorUsuario();
         EditText correoUser = findViewById(R.id.userField);
         EditText pass = findViewById(R.id.passField);
-        Button buttonRegister = findViewById(R.id.buttonRegister);
-        Button buttonRecover = findViewById(R.id.buttonRecover);
+        ImageButton buttonRegister = findViewById(R.id.buttonRegister);
+        ImageButton buttonRecover = findViewById(R.id.buttonRecover);
         ImageButton buttonNext = findViewById(R.id.buttonNext);
 
         buttonNext.setOnClickListener(v -> {
@@ -57,9 +56,24 @@ public class LogIn extends AppCompatActivity {
                 public void onFailure(Exception exception) {
                     Toast.makeText(LogIn.this, "Error en el inicio de sesión: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-        });
+            });
 
-        });
 
+            buttonRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LogIn.this, Registro1Activity.class);
+                    startActivity(intent);
+                }
+            });
+
+            buttonRecover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LogIn.this, RecoverPassActivity.class);
+                    startActivity(intent);
+                }
+            });
+        });
     }
-    }
+}
