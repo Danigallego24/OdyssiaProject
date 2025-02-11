@@ -1,6 +1,7 @@
 package com.example.odyssiaproject;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewPaises;
     private AdaptadorPromociones adaptadorPromociones;
     private AdaptadorPaises adaptadorPaises;
+    private Handler handler = new Handler();
+    private int scrollSpeed = 10;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         List<Promociones> listaPromociones = ListaPromocionesSingelton.getInstance().getListaPromociones();
         adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
         recyclerViewPromociones.setAdapter(adaptadorPromociones);
+        handler.postDelayed(scrollRunnable, 1000);
+
 
 
         recyclerViewPaises = findViewById(R.id.rwCountries);
@@ -64,4 +72,19 @@ public class MainActivity extends AppCompatActivity {
         adaptadorPromociones.notifyDataSetChanged();
         adaptadorPaises.notifyDataSetChanged();
     }
+
+    private Runnable scrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            recyclerViewPromociones.smoothScrollBy(scrollSpeed, 0);
+            
+            if (!recyclerViewPromociones.canScrollHorizontally(1)) {
+                recyclerViewPromociones.scrollToPosition(0);
+            }
+
+            handler.postDelayed(this, 50);
+        }
+    };
+
+
 }

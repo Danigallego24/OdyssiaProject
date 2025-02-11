@@ -3,14 +3,15 @@ package com.example.odyssiaproject.adaptador;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Promociones;
-import com.example.odyssiaproject.negocio.negocioPromociones;
+import com.example.odyssiaproject.negocio.GestorPromociones;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
         this.listaPromociones = listaVideoJuegos;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imagenPromocion;
+        private ImageButton imagenPromocion;
 
         public ViewHolder(View v) {
             super(v);
-            imagenPromocion = v.findViewById(R.id.promotionImage);
+            imagenPromocion = v.findViewById(R.id.imagePromotion);
         }
     }
     @NonNull
@@ -38,7 +39,7 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorPromociones.ViewHolder holder, int position) {
-        negocioPromociones nP = new negocioPromociones();
+        GestorPromociones nP = new GestorPromociones();
         p = listaPromociones.get(position);
         if (nP.imagenPromocion(p) == 1){
             holder.imagenPromocion.setImageResource(R.drawable.imgpromotion);
