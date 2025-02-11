@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/register2"
+    android:id="@+id/register2Page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/odyssiaregisterpage"
@@ -28,7 +28,7 @@
 
     <!-- User Field -->
     <EditText
-        android:id="@+id/userField"
+        android:id="@+id/etUsuario"
         android:layout_width="350dp"
         android:layout_height="49dp"
         android:layout_marginTop="35dp"
@@ -45,7 +45,7 @@
 
     <!-- Password Field -->
     <EditText
-        android:id="@+id/passField"
+        android:id="@+id/etContrasenia"
         android:layout_width="350dp"
         android:layout_height="49dp"
         android:layout_marginTop="20dp"
@@ -58,11 +58,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userField" />
+        app:layout_constraintTop_toBottomOf="@id/etUsuario" />
 
     <!-- E-mail Field -->
     <EditText
-        android:id="@+id/mailField"
+        android:id="@+id/etEMail"
         android:layout_width="350dp"
         android:layout_height="49dp"
         android:layout_marginTop="20dp"
@@ -75,11 +75,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passField" />
+        app:layout_constraintTop_toBottomOf="@id/etContrasenia" />
 
     <!-- Continue Button -->
     <ImageButton
-        android:id="@+id/buttonNext"
+        android:id="@+id/btnContinuar"
         android:layout_width="168dp"
         android:layout_height="49dp"
         android:background="@drawable/buttoncontinue"
@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mailField" />
+        app:layout_constraintTop_toBottomOf="@+id/etEMail" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
