@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/register"
+    android:id="@+id/register2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/odyssiaregisterpage"
@@ -19,21 +19,21 @@
         android:layout_marginTop="404dp"
         android:indeterminate="false"
         android:max="100"
-        android:progress="0"
+        android:progress="33"
         android:progressDrawable="@drawable/custom_progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Name Field -->
+    <!-- User Field -->
     <EditText
-        android:id="@+id/nameField"
+        android:id="@+id/userField"
         android:layout_width="350dp"
         android:layout_height="49dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/textname"
-        android:hint="Nombre"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/textuser"
+        android:hint="Usuario"
         android:inputType="text"
         android:paddingLeft="50dp"
         android:textColor="#D4D4D4"
@@ -43,14 +43,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/progressBar" />
 
-    <!-- Surname Field -->
+    <!-- Password Field -->
     <EditText
-        android:id="@+id/surnameField"
+        android:id="@+id/passField"
         android:layout_width="350dp"
         android:layout_height="49dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textsurname"
-        android:hint="Apellidos"
+        android:background="@drawable/textpass"
+        android:hint="Contraseña"
         android:inputType="text"
         android:paddingLeft="50dp"
         android:textColor="#D4D4D4"
@@ -58,7 +58,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameField" />
+        app:layout_constraintTop_toBottomOf="@id/userField" />
+
+    <!-- E-mail Field -->
+    <EditText
+        android:id="@+id/mailField"
+        android:layout_width="350dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textemail"
+        android:hint="E-mail"
+        android:inputType="text"
+        android:paddingLeft="50dp"
+        android:textColor="#D4D4D4"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passField" />
 
     <!-- Continue Button -->
     <ImageButton
@@ -70,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
+        app:layout_constraintTop_toBottomOf="@+id/mailField" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
