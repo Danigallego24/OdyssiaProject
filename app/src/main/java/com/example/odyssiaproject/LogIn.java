@@ -1,8 +1,8 @@
 package com.example.odyssiaproject;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,17 +25,13 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        GestorUsuario gestorUsuario= new GestorUsuario();
-        EditText correoUser = findViewById(R.id.userField);
-        EditText pass = findViewById(R.id.passField);
-        Button buttonRegister = findViewById(R.id.buttonRegister);
-        Button buttonRecover = findViewById(R.id.buttonRecover);
-        ImageButton buttonNext = findViewById(R.id.buttonNext);
+
+        GestorUsuario gestorUsuario = new GestorUsuario();
+        EditText correoUser = findViewById(R.id.etUsuario);
+        EditText pass = findViewById(R.id.etContrasenia);
+        ImageButton buttonRegister = findViewById(R.id.btnRegistro);
+        Button buttonRecover = findViewById(R.id.btnRecuperar);
+        ImageButton buttonNext = findViewById(R.id.btnInicio);
 
         buttonNext.setOnClickListener(v -> {
 
@@ -57,9 +53,24 @@ public class LogIn extends AppCompatActivity {
                 public void onFailure(Exception exception) {
                     Toast.makeText(LogIn.this, "Error en el inicio de sesión: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-        });
+            });
 
-        });
 
+            buttonRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LogIn.this, Registro1Activity.class);
+                    startActivity(intent);
+                }
+            });
+
+            buttonRecover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LogIn.this, RecoverPassActivity.class);
+                    startActivity(intent);
+                }
+            });
+        });
     }
-    }
+}

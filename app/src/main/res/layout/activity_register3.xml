@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/register3"
+    android:id="@+id/register3Page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/odyssiaregisterpage"
@@ -28,10 +28,10 @@
 
     <!-- Birthdate Field -->
     <EditText
-        android:id="@+id/dateField"
+        android:id="@+id/etNacimiento"
         android:layout_width="350dp"
         android:layout_height="49dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/textdate"
         android:hint="Fecha de Nacimiento"
         android:inputType="text"
@@ -45,7 +45,7 @@
 
     <!-- Nationality Field -->
     <EditText
-        android:id="@+id/nationalityField"
+        android:id="@+id/etNacionalidad"
         android:layout_width="350dp"
         android:layout_height="49dp"
         android:layout_marginTop="20dp"
@@ -58,11 +58,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateField" />
+        app:layout_constraintTop_toBottomOf="@id/etNacimiento" />
+
+    <!-- Gender Field -->
+    <Spinner
+        android:id="@+id/spinnerGender"
+        android:layout_width="350dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textgender"
+        android:paddingLeft="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etNacionalidad" />
 
     <!-- Continue Button -->
     <ImageButton
-        android:id="@+id/buttonNext"
+        android:id="@+id/btnContinuar"
         android:layout_width="168dp"
         android:layout_height="49dp"
         android:background="@drawable/buttoncontinue"
@@ -70,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nationalityField" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGender" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cityPage"
+    android:id="@+id/explorationPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/odyssiacitypage"
-    tools:context=".CityActivity">
+    android:background="@drawable/odyssiaexplorationpage"
+    tools:context=".ExplorationActivity">
 
     <!-- Top menu -->
     <LinearLayout
@@ -66,19 +66,19 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/buttonsortby"
         android:contentDescription="sort by button"
-        app:layout_constraintBottom_toTopOf="@id/rwCities"
+        app:layout_constraintBottom_toTopOf="@id/rwExploration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rwPromotions" />
 
-    <!-- RecyclerView Cities -->
+    <!-- RecyclerView Exploration -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rwCities"
+        android:id="@+id/rwExploration"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="5dp"
         android:layout_marginTop="40dp"
+        android:paddingTop="5dp"
         android:orientation="vertical"
         app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -86,6 +86,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_cities"/>
+        tools:listitem="@layout/item_exploration"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

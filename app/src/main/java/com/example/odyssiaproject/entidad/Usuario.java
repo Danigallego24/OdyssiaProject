@@ -5,6 +5,17 @@ public class Usuario {
    private String nombre, apellido, fechaNacimiento,nacionalidad, contrasenia, correo;
    private Sexo sexo;
 
+   public Usuario(int id, String nombre, String apellido, String fechaNacimiento, String nacionalidad, String contrasenia, String correo, Sexo sexo) {
+      this.id = id;
+      this.nombre = nombre;
+      this.apellido = apellido;
+      this.fechaNacimiento = fechaNacimiento;
+      this.nacionalidad = nacionalidad;
+      this.contrasenia = contrasenia;
+      this.correo = correo;
+      this.sexo = sexo;
+   }
+
    public Usuario(String correo, String contrasenia) {
       this.contrasenia = contrasenia;
       this.correo = correo;
