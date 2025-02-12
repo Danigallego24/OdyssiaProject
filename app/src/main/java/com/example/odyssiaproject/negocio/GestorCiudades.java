@@ -7,73 +7,73 @@ public class GestorCiudades {
 
     private ListaCiudadesSingelton listaCiudades;
 
-    public int imagenCiudad(Ciudad c) {
+    public String imagenCiudad(Ciudad c) {
         listaCiudades = ListaCiudadesSingelton.getInstance();
         Ciudad ciudad = listaCiudades.getCiudadByName(c.getNombre());
         if (ciudad != null) {
             String nombreCiudad = ciudad.getNombre();
             if (nombreCiudad.equals("Madrid")) {
-                return 1;
+                return "Madrid";
             } else if (nombreCiudad.equals("Barcelona")) {
-                return 2;
+                return "Barcelona";
             } else if (nombreCiudad.equals("Sevilla")) {
-                return 3;
+                return "Sevilla";
             } else if (nombreCiudad.equals("Roma")) {
-                return 4;
+                return "Roma";
             } else if (nombreCiudad.equals("Florencia")) {
-                return 5;
+                return "Florencia";
             } else if (nombreCiudad.equals("Venecia")) {
-                return 6;
+                return "Venecia";
             } else if (nombreCiudad.equals("Paris")) {
-                return 7;
+                return "Paris";
             } else if (nombreCiudad.equals("Lyon")) {
-                return 8;
+                return "Lyon";
             } else if (nombreCiudad.equals("Marsella")) {
-                return 9;
+                return "Marsella";
             } else if (nombreCiudad.equals("Zurich")) {
-                return 10;
+                return "Zurich";
             } else if (nombreCiudad.equals("Ginebra")) {
-                return 11;
+                return "Ginebra";
             } else if (nombreCiudad.equals("Berna")) {
-                return 12;
+                return "Berna";
             } else if (nombreCiudad.equals("Santorini")) {
-                return 13;
+                return "Santorini";
             } else if (nombreCiudad.equals("Atenas")) {
-                return 14;
+                return "Atenas";
             } else if (nombreCiudad.equals("Salonica")) {
-                return 15;
+                return "Salonica";
             } else if (nombreCiudad.equals("Porto")) {
-                return 16;
+                return "Porto";
             } else if (nombreCiudad.equals("Lisboa")) {
-                return 17;
+                return "Lisboa";
             } else if (nombreCiudad.equals("Braga")) {
-                return 18;
+                return "Braga";
             } else if (nombreCiudad.equals("Bruselas")) {
-                return 19;
+                return "Bruselas";
             } else if (nombreCiudad.equals("Brujas")) {
-                return 20;
+                return "Brujas";
             } else if (nombreCiudad.equals("Amberes")) {
-                return 21;
+                return "Amberes";
             } else if (nombreCiudad.equals("Oslo")) {
-                return 22;
+                return "Oslo";
             } else if (nombreCiudad.equals("Bergen")) {
-                return 23;
+                return "Bergen";
             } else if (nombreCiudad.equals("Tromso")) {
-                return 24;
+                return "Tromso";
             } else if (nombreCiudad.equals("Londres")) {
-                return 25;
+                return "Londres";
             } else if (nombreCiudad.equals("Manchester")) {
-                return 26;
+                return "Manchester";
             } else if (nombreCiudad.equals("Liverpool")) {
-                return 27;
+                return "Liverpool";
             } else if (nombreCiudad.equals("Amsterdan")) {
-                return 28;
+                return "Amsterdan";
             } else if (nombreCiudad.equals("Rotterdam")) {
-                return 29;
+                return "Rotterdam";
             } else if (nombreCiudad.equals("Utrecht")) {
-                return 30;
+                return "Utrecht";
             }
         }
-        return 0;
+        return "0";
     }
 }
