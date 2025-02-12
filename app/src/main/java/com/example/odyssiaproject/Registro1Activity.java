@@ -17,9 +17,9 @@ public class Registro1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        etNombre = findViewById(R.id.nameField);
-        etApellido = findViewById(R.id.surnameField);
-        btnSiguiente = findViewById(R.id.buttonNext);
+        etNombre = findViewById(R.id.etNombre);
+        etApellido = findViewById(R.id.etApellido);
+        btnSiguiente = findViewById(R.id.btnContinuar);
 
         btnSiguiente.setOnClickListener(view -> {
             String nombre = etNombre.getText().toString().trim();
