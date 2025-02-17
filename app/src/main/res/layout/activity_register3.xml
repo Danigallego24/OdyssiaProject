@@ -68,7 +68,6 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/textgender"
         android:paddingLeft="50dp"
-        android:entries="@array/sex_options"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"

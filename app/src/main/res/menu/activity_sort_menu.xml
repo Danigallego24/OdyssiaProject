@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sortA_Z"
+        android:title="Ordenar de A-Z"/>
+    <item
+        android:id="@+id/sortZ_A"
+        android:title="Ordenar de Z-A"/>
+    <item
+        android:id="@+id/sortPopularidad"
+        android:title="Ordenar por Popularidad"/>
+</menu>
