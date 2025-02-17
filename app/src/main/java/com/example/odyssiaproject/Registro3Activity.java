@@ -3,6 +3,7 @@ package com.example.odyssiaproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,7 +27,7 @@ public class Registro3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
 
-        etFechaNacimiento = findViewById(R.id.etNacionalidad);
+        etFechaNacimiento = findViewById(R.id.etNacimiento);
         spinnerSexo = findViewById(R.id.spinnerGender);
         etNacionalidad = findViewById(R.id.etNacionalidad);
         btnRegistrar = findViewById(R.id.btnContinuar);
@@ -55,6 +56,7 @@ public class Registro3Activity extends AppCompatActivity {
             Usuario usuario = new Usuario(0, nombre, apellido, fechaNacimiento, nacionalidad, contrasenia, correo, sexo);
 
             GestorUsuario gestor = new GestorUsuario();
+
             gestor.registrar(usuario, new GestorUsuario.OnRegistroListener() {
                 @Override
                 public void onSuccess(com.google.firebase.auth.FirebaseUser user) {
@@ -62,7 +64,8 @@ public class Registro3Activity extends AppCompatActivity {
                     // Pasar a la pantalla final de confirmación
                     Intent intentFinal = new Intent(Registro3Activity.this, Registro4Activity.class);
                     startActivity(intentFinal);
-                    finish();
+
+
                 }
 
                 @Override

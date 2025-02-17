@@ -14,9 +14,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class DaoUsuario {
 
         private FirebaseAuth mAuth;
+        private DatabaseReference mDatabase;
 
         public DaoUsuario() {
             mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
         public void iniciarSesion(String correo, String contrasenia, final OnLoginListener listener) {
@@ -40,35 +42,37 @@ public class DaoUsuario {
         }
 
     public void registrarUsuario(final Usuario usuario, final OnRegistroListener listener) {
-        // Se crea el usuario en Firebase Authentication
+        // 1. Crear usuario en Firebase Authentication
         mAuth.createUserWithEmailAndPassword(usuario.getCorreo(), usuario.getContrasenia())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Obtiene el usuario recién creado
+                            // 2. Obtener el usuario recién creado (FirebaseUser)
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            // Obtiene el UID del usuario para usarlo como clave en la base de datos
+                            if (firebaseUser == null) {
+                                // Si por alguna razón es nulo, notificamos error
+                                listener.onFailure(new Exception("No se pudo obtener el usuario de Firebase."));
+                                return;
+                            }
+
+                            // 3. Obtener el UID para usarlo como clave en la BD
                             String uid = firebaseUser.getUid();
 
-                            // Referencia al nodo "usuarios" y al subnodo con el UID
-                            DatabaseReference reference = FirebaseDatabase.getInstance()
-                                    .getReference("usuarios")
-                                    .child(uid);
-
-                            // Guarda el objeto 'usuario' en la base de datos
-                            reference.setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> taskDB) {
-                                    if (taskDB.isSuccessful()) {
-                                        // Registro exitoso y datos guardados correctamente
-                                        listener.onSuccess(firebaseUser);
-                                    } else {
-                                        // Error al guardar en la base de datos
-                                        listener.onFailure(taskDB.getException());
-                                    }
-                                }
-                            });
+                            // 4. Guardar el objeto Usuario en Realtime Database (nodo "usuarios/uid")
+                            mDatabase.child("usuarios").child(uid).setValue(usuario)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> taskDB) {
+                                            if (taskDB.isSuccessful()) {
+                                                // Registro exitoso y datos guardados correctamente
+                                                listener.onSuccess(firebaseUser);
+                                            } else {
+                                                // Error al guardar en la base de datos
+                                                listener.onFailure(taskDB.getException());
+                                            }
+                                        }
+                                    });
                         } else {
                             // Error al crear el usuario en Firebase Authentication
                             listener.onFailure(task.getException());
