@@ -15,9 +15,7 @@
         tools:targetApi="31">
         <activity
             android:name=".ConfigurationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_configuration"
-            android:theme="@style/Theme.OdyssiaProject.NoActionBar" />
+            android:exported="false"  />
         <activity
             android:name=".OptionActivity"
             android:exported="false" />
