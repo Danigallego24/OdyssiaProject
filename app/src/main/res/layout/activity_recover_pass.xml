@@ -8,44 +8,52 @@
     android:background="@drawable/odyssiarecoverpage"
     tools:context=".RecoverPassActivity">
 
-    <ImageView
-        android:id="@+id/odyssiaRecoverText"
-        android:layout_width="334dp"
-        android:layout_height="177dp"
-        android:layout_marginTop="380dp"
-        android:background="@drawable/odyssiarecovertext"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/textemail"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="50dp"
-        android:textColor="#D4D4D4"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/odyssiaRecoverText" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/btnMandar"
-        android:layout_width="168dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttonrecover"
-        android:contentDescription="boton para recuperar contraseña"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEmail" />
+            <ImageView
+                android:id="@+id/odyssiaRecoverText"
+                android:layout_width="334dp"
+                android:layout_height="177dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/odyssiarecovertext" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/textemail"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="50dp"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnMandar"
+                android:layout_width="168dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/buttonrecover"
+                android:contentDescription="boton para recuperar contraseña" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
