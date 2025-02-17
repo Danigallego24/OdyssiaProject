@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/navInicio"
-        android:label="@string/menu_home"
+        android:label="@string/navHome"
         tools:layout="@layout/activity_main" />
 
     <fragment
         android:id="@+id/navFavoritos"
-        android:label="@string/menu_favs"
+        android:label="@string/navGaleriaFavs"
         tools:layout="@layout/fragment_favs" />
 
     <fragment
         android:id="@+id/navConfiguracion"
-        android:label="@string/menu_ajustes"
+        android:label="@string/navConfiguration"
         tools:layout="@layout/fragment_config" />
 </navigation>
