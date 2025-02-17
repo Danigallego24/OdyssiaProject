@@ -64,3 +64,5 @@ public class ConfigurationActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 }
+
+ 
