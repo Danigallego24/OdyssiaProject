@@ -60,7 +60,7 @@ public class DaoUsuario {
                             String uid = firebaseUser.getUid();
 
                             // 4. Guardar el objeto Usuario en Realtime Database (nodo "usuarios/uid")
-                            mDatabase.child("usuarios").child(uid).setValue(usuario)
+                            mDatabase.child(uid).setValue(usuario)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> taskDB) {
