@@ -5,30 +5,30 @@ import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 
 public class GestorPaises {
     private ListaPaisesSingelton listaPaises;
-    public int imagenPaises(Pais p){
+    public String imagenPaises(Pais p){
         listaPaises = ListaPaisesSingelton.getInstance();
         Pais pais = listaPaises.getPaisByName(p.getNombre());
         if(pais.getNombre().equals("España")){
-            return 1;
+            return "España";
         } else if (pais.getNombre().equals("Italia")) {
-            return 2;
+            return "Italia";
         }else if (pais.getNombre().equals("Francia")) {
-            return 3;
+            return "Francia";
         }else if (pais.getNombre().equals("Suiza")) {
-            return 4;
+            return "Suiza";
         }else if (pais.getNombre().equals("Grecia")) {
-            return 5;
+            return "Grecia";
         }else if (pais.getNombre().equals("Portugal")) {
-            return 6;
+            return "Portugal";
         }else if (pais.getNombre().equals("Belgica")) {
-            return 7;
+            return "Belgica";
         }else if (pais.getNombre().equals("Noruega")) {
-            return 8;
+            return "Noruega";
         }else if (pais.getNombre().equals("Inglaterra")) {
-            return 9;
+            return "Inglaterra";
         } else if (pais.getNombre().equals("Holanda")) {
-            return 10;
+            return "Holanda";
         }
-        return 0;
+        return "0";
     }
 }

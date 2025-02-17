@@ -6,7 +6,7 @@ public class Ciudad {
     private int id;
     private Pais pais;
     private List<Actividad> listaActividades;
-    private String nombre;
+    private String nombre, descripcion;
 
     public Pais getPais() {
         return pais;
@@ -40,6 +40,14 @@ public class Ciudad {
         this.id = id;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Ciudad{" +
@@ -47,6 +55,7 @@ public class Ciudad {
                 ", pais=" + pais +
                 ", listaActividades=" + listaActividades +
                 ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }

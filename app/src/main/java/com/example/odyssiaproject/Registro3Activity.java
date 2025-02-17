@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.odyssiaproject.entidad.Usuario;
@@ -16,6 +17,8 @@ public class Registro3Activity extends AppCompatActivity {
 
     private EditText etFechaNacimiento, etNacionalidad;
     private ImageButton btnRegistrar;
+
+    private Spinner spinnerSexo;
     private String nombre, apellido, correo, contrasenia;
 
     @Override
@@ -23,9 +26,10 @@ public class Registro3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
 
-        etFechaNacimiento = findViewById(R.id.dateField);
-        etNacionalidad = findViewById(R.id.nationalityField);
-        btnRegistrar = findViewById(R.id.buttonNext);
+        etFechaNacimiento = findViewById(R.id.etNacionalidad);
+        spinnerSexo = findViewById(R.id.spinnerGender);
+        etNacionalidad = findViewById(R.id.etNacionalidad);
+        btnRegistrar = findViewById(R.id.btnContinuar);
 
         // Recoger datos de Registro2Activity
         Intent intent = getIntent();
@@ -37,9 +41,18 @@ public class Registro3Activity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(view -> {
             String fechaNacimiento = etFechaNacimiento.getText().toString().trim();
             String nacionalidad = etNacionalidad.getText().toString().trim();
+            String sexoSeleccionado = spinnerSexo.getSelectedItem().toString();
 
+            Sexo sexo;
+            if (sexoSeleccionado.equalsIgnoreCase("hombre")) {
+                sexo = Sexo.HOMBRE;
+            } else if (sexoSeleccionado.equalsIgnoreCase("mujer")) {
+                sexo = Sexo.MUJER;
+            } else {
+                sexo = Sexo.OTRE;
+            }
 
-            Usuario usuario = new Usuario( nombre, apellido, fechaNacimiento, nacionalidad, contrasenia, correo);
+            Usuario usuario = new Usuario(0, nombre, apellido, fechaNacimiento, nacionalidad, contrasenia, correo, sexo);
 
             GestorUsuario gestor = new GestorUsuario();
             gestor.registrar(usuario, new GestorUsuario.OnRegistroListener() {

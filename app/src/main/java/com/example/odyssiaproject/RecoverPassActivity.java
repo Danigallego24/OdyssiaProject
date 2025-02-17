@@ -22,8 +22,8 @@ public class RecoverPassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recover_pass);
 
-        etEmail = findViewById(R.id.emailRecover);
-        btnRecuperar = findViewById(R.id.buttonRecover);
+        etEmail = findViewById(R.id.etEmail);
+        btnRecuperar = findViewById(R.id.btnMandar);
         gestorUsuario = new GestorUsuario();
 
         btnRecuperar.setOnClickListener(view -> {

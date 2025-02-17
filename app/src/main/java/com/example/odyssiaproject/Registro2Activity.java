@@ -18,9 +18,9 @@ public class Registro2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
 
-        etCorreo = findViewById(R.id.userField);
-        etContrasenia = findViewById(R.id.passField);
-        btnSiguiente = findViewById(R.id.buttonNext);
+        etCorreo = findViewById(R.id.etEMail);
+        etContrasenia = findViewById(R.id.etContrasenia);
+        btnSiguiente = findViewById(R.id.btnContinuar);
 
         // Recoger datos de Registro1Activity
         Intent intent = getIntent();

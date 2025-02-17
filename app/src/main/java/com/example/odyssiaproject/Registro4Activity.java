@@ -16,7 +16,7 @@ public class Registro4Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register4);
 
-        btnLogin = findViewById(R.id.buttonNext);
+        btnLogin = findViewById(R.id.btnContinuar);
 
         tvMensaje.setText("Te has registrado correctamente");
 

@@ -15,6 +15,7 @@ import com.example.odyssiaproject.adaptador.AdaptadorPaises;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
+import com.example.odyssiaproject.singelton.ListaCiudadesSingelton;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainPage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewPaises.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         );
-
+        ListaCiudadesSingelton.getInstance().inicializar();
         ListaPaisesSingelton.getInstance().inicializar();
         List<Pais> listaPaises = ListaPaisesSingelton.getInstance().getListaPaises();
         adaptadorPaises = new AdaptadorPaises(listaPaises);
