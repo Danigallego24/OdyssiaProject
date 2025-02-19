@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
 
-        ListaPromocionesSingelton.getInstance().inicializar();
         List<Promociones> listaPromociones = ListaPromocionesSingelton.getInstance().getListaPromociones();
         adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
         recyclerViewPromociones.setAdapter(adaptadorPromociones);
@@ -60,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewPaises.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         );
-        ListaCiudadesSingelton.getInstance().inicializar();
-        ListaPaisesSingelton.getInstance().inicializar();
+
         List<Pais> listaPaises = ListaPaisesSingelton.getInstance().getListaPaises();
         adaptadorPaises = new AdaptadorPaises(listaPaises);
         recyclerViewPaises.setAdapter(adaptadorPaises);

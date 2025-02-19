@@ -66,8 +66,8 @@ public class GestorCiudades {
                 return "Manchester";
             } else if (nombreCiudad.equals("Liverpool")) {
                 return "Liverpool";
-            } else if (nombreCiudad.equals("Amsterdan")) {
-                return "Amsterdan";
+            } else if (nombreCiudad.equals("Amsterdam")) {
+                return "Amsterdam";
             } else if (nombreCiudad.equals("Rotterdam")) {
                 return "Rotterdam";
             } else if (nombreCiudad.equals("Utrecht")) {

@@ -69,7 +69,7 @@ public class ListaCiudadesSingelton {
         agregarCiudad("Manchester", "Inglaterra", "El alma del rock y el fútbol inglés, con una energía urbana inigualable.");
         agregarCiudad("Liverpool", "Inglaterra", "La cuna de los Beatles y un puerto lleno de historia y cultura.");
 
-        agregarCiudad("Ámsterdam", "Holanda", "Una ciudad de canales y bicicletas, donde el arte, la historia y la modernidad se mezclan a la perfección.");
+        agregarCiudad("Amsterdam", "Holanda", "Una ciudad de canales y bicicletas, donde el arte, la historia y la modernidad se mezclan a la perfección.");
         agregarCiudad("Rotterdam", "Holanda", "La ciudad de la innovación y la arquitectura vanguardista, con uno de los puertos más grandes del mundo.");
         agregarCiudad("Utrecht", "Holanda", "El encanto del corazón de los Países Bajos, con canales únicos y una rica historia universitaria.");
 
