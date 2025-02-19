@@ -1,48 +1,32 @@
 package com.example.odyssiaproject;
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import android.widget.FrameLayout;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.odyssiaproject.databinding.ActivityConfigurationBinding;
-
 public class ConfigurationActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private ActivityConfigurationBinding binding;
+    protected DrawerLayout drawerLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setContentView(int layoutResID) {
+        // Inflamos el layout base que contiene el DrawerLayout
+        DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_configuration, null);
+        // Buscamos el contenedor principal
+        FrameLayout frameLayout = fullView.findViewById(R.id.content_frame);
+        // Inflamos el layout específico de la Activity dentro del contenedor
+        getLayoutInflater().inflate(layoutResID, frameLayout, true);
+        super.setContentView(fullView);
 
-        binding = ActivityConfigurationBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        DrawerLayout drawer = binding.navBarDrawer;
-        NavigationView navigationView = binding.navBarView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navHome, R.id.navGaleriaFavs, R.id.navConfiguration)
-                .setOpenableLayout(drawer)
-                .build();
+        // Obtenemos referencia al DrawerLayout para usarlo en cualquier Activity que herede de BaseActivity
+        drawerLayout = fullView.findViewById(R.id.navBarDrawer);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        return true;
+    // Método para abrir el menú lateral
+    public void openDrawer() {
+        if (drawerLayout != null) {
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
     }
-
 }

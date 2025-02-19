@@ -32,11 +32,12 @@
         <!-- Search Field -->
         <EditText
             android:id="@+id/etBuscar"
-            android:layout_width="340dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="16dp"
             android:background="@drawable/textsearch"
-            android:hint="Search"
+            android:hint="Buscar"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
             android:inputType="text"
             android:paddingLeft="60dp"
             android:textColor="@color/black"
@@ -73,13 +74,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="0dp"
         app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/btnSortBy">
 
         <!-- RecyclerView Cities -->
         <androidx.recyclerview.widget.RecyclerView

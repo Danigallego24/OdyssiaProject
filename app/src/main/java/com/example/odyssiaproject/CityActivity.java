@@ -2,6 +2,8 @@ package com.example.odyssiaproject;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,7 @@ import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityActivity extends AppCompatActivity {
+public class CityActivity extends ConfigurationActivity {
     private RecyclerView recyclerViewCiudades;
     private AdaptadorCiudades ciudadesAdapter;
     private AdaptadorPromociones adaptadorPromociones;
@@ -69,6 +71,14 @@ public class CityActivity extends AppCompatActivity {
 
         ciudadesAdapter = new AdaptadorCiudades(ciudadesList);
         recyclerViewCiudades.setAdapter(ciudadesAdapter);
+
+        ImageButton btnAbrirMenu = findViewById(R.id.btnMenu);
+        btnAbrirMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDrawer();
+            }
+        });
 
     }
     private Runnable scrollRunnable = new Runnable() {

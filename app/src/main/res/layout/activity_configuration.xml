@@ -8,29 +8,10 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include
-        android:id="@+id/navMain"
-        layout="@layout/fragment_home"
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <include
-        android:id="@+id/navCities"
-        layout="@layout/activity_city"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <include
-        android:id="@+id/navExploration"
-        layout="@layout/activity_exploration"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <include
-        android:id="@+id/navOptions"
-        layout="@layout/activity_option"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navBarView"
