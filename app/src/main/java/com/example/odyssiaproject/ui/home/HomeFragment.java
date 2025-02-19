@@ -1,16 +1,19 @@
-package com.example.odyssiaproject;
+package com.example.odyssiaproject.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.odyssiaproject.ConfigurationActivity;
+import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.adaptador.AdaptadorPaises;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
 import com.example.odyssiaproject.entidad.Pais;
@@ -21,7 +24,7 @@ import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeFragment extends ConfigurationActivity {
     private RecyclerView recyclerViewPromociones;
     private RecyclerView recyclerViewPaises;
     private AdaptadorPromociones adaptadorPromociones;
@@ -29,13 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_home);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainPage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -64,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
         adaptadorPaises = new AdaptadorPaises(listaPaises);
         recyclerViewPaises.setAdapter(adaptadorPaises);
 
+        ImageButton btnAbrirMenu = findViewById(R.id.btnMenu);
+        btnAbrirMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDrawer();
+            }
+        });
+
     }
     @Override
     protected void onResume() {
@@ -76,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             recyclerViewPromociones.smoothScrollBy(scrollSpeed, 0);
-            
+
             if (!recyclerViewPromociones.canScrollHorizontally(1)) {
                 recyclerViewPromociones.scrollToPosition(0);
             }

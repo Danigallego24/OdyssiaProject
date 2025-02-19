@@ -32,14 +32,15 @@
         <!-- Search Field -->
         <EditText
             android:id="@+id/etBuscar"
-            android:layout_width="340dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="16dp"
             android:background="@drawable/textsearch"
-            android:hint="Search"
+            android:hint="Buscar"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
             android:inputType="text"
             android:paddingLeft="60dp"
-            android:textColor="#D4D4D4"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,26 +67,31 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/buttonsortby"
         android:contentDescription="sort by button"
-        app:layout_constraintBottom_toTopOf="@id/rwCities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rwPromotions" />
 
-    <!-- RecyclerView Cities -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rwCities"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="5dp"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical"
-        app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/btnSortBy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_cities"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSortBy">
 
+        <!-- RecyclerView Cities -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rwCities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_cities" />
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

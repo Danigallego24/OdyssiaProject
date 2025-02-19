@@ -9,12 +9,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string-array name="sex_options">
-        <item>HOMBRE</item>
-        <item>MUJER</item>
-        <item>OTRE</item>
-    </string-array>
+    <string name="navHome">Inicio</string>
+    <string name="navGaleriaFavs">Favoritos</string>
+    <string name="navConfiguration">Ajustes</string>
+
+    <string name="sortA_Z">Ordenar de A-Z</string>
+    <string name="sortZ_A">Ordenar de Z-A</string>
+    <string name="sortPopularidad">Ordenar por Popularidad</string>
 </resources>

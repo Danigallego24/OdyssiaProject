@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.odyssiaproject.entidad.Usuario;
 import com.example.odyssiaproject.negocio.GestorUsuario;
+import com.example.odyssiaproject.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LogIn extends AppCompatActivity {
@@ -63,7 +64,7 @@ public class LogIn extends AppCompatActivity {
                     public void onSuccess(FirebaseUser user) {
                         Toast.makeText(LogIn.this, "Inicio de sesión exitoso: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                         // Redirigir a la actividad principal
-                        startActivity(new Intent(LogIn.this, MainActivity.class));
+                        startActivity(new Intent(LogIn.this, HomeFragment.class));
                         finish();
                     }
 

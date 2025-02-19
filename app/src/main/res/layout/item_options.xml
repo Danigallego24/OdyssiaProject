@@ -68,7 +68,7 @@
             android:layout_marginTop="250dp"
             android:text="Abrir"
             android:textAllCaps="false"
-            android:backgroundTint="#A4CEFF"
+            android:backgroundTint="#51A1FF"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"/>
 

@@ -3,5 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navHome"
+            android:icon="@drawable/iconhome"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/navGaleriaFavs"
+            android:icon="@drawable/icongalleryfavs"
+            android:title="Favoritos" />
+        <item
+            android:id="@+id/navConfiguration"
+            android:icon="@drawable/iconconfiguration"
+            android:title="Ajustes" />
+    </group>
 </menu>
