@@ -10,7 +10,7 @@
             android:title="Inicio" />
         <item
             android:id="@+id/navGaleriaFavs"
-            android:icon="@drawable/iconagalleryfavs"
+            android:icon="@drawable/icongalleryfavs"
             android:title="Favoritos" />
         <item
             android:id="@+id/navConfiguration"

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navInicio"
         android:label="@string/navHome"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navFavoritos"
