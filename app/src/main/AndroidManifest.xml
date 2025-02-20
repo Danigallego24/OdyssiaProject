@@ -40,6 +40,8 @@
         <activity
             android:name=".ui.home.HomeFragment"
             android:exported="false" />
+        <activity android:name=".CityActivity"
+            android:exported="false" />
         <activity
             android:name=".LogIn"
             android:exported="false" />

@@ -57,9 +57,9 @@ public class ListaCiudadesSingelton {
         agregarCiudad("Lisboa", "Portugal", "Una ciudad de colinas, tranvías y fado, donde la historia y la modernidad van de la mano.");
         agregarCiudad("Braga", "Portugal", "Una de las ciudades más antiguas de Portugal, llena de iglesias barrocas y una energía juvenil vibrante.");
 
-        agregarCiudad("Bruselas", "Bélgica", "La capital de Europa, con su impresionante Grand Place y su irresistible chocolate belga.");
-        agregarCiudad("Brujas", "Bélgica", "Un cuento de hadas hecho ciudad, con canales pintorescos y arquitectura medieval.");
-        agregarCiudad("Amberes", "Bélgica", "El corazón del diamante y la moda belga, con un puerto vibrante y una arquitectura sorprendente.");
+        agregarCiudad("Bruselas", "Belgica", "La capital de Europa, con su impresionante Grand Place y su irresistible chocolate belga.");
+        agregarCiudad("Brujas", "Belgica", "Un cuento de hadas hecho ciudad, con canales pintorescos y arquitectura medieval.");
+        agregarCiudad("Amberes", "Belgica", "El corazón del diamante y la moda belga, con un puerto vibrante y una arquitectura sorprendente.");
 
         agregarCiudad("Oslo", "Noruega", "La capital de la naturaleza y el diseño escandinavo, rodeada de fiordos y bosques.");
         agregarCiudad("Bergen", "Noruega", "La puerta de entrada a los fiordos noruegos, con su icónico muelle de casas de colores.");

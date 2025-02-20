@@ -1,6 +1,8 @@
 package com.example.odyssiaproject.adaptador;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,23 +66,23 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         } else if (cityCode.equals("Sevilla")) {
             holder.imageCiudad.setImageResource(R.drawable.citysevilla);
         } else if (cityCode.equals("Roma")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityroma);
         } else if (cityCode.equals("Florencia")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityflorencia);
         } else if (cityCode.equals("Venecia")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityvenecia);
         } else if (cityCode.equals("Paris")) {
             holder.imageCiudad.setImageResource(R.drawable.cityparis);
         } else if (cityCode.equals("Lyon")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citylyon);
         } else if (cityCode.equals("Marsella")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citymarsella);
         } else if (cityCode.equals("Zurich")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityzurich);
         } else if (cityCode.equals("Ginebra")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityginebra);
         } else if (cityCode.equals("Berna")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityberna);
         } else if (cityCode.equals("Santorini")) {
             holder.imageCiudad.setImageResource(R.drawable.citysantorini);
         } else if (cityCode.equals("Atenas")) {
@@ -88,40 +90,54 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         } else if (cityCode.equals("Salonica")) {
             holder.imageCiudad.setImageResource(R.drawable.citysalonica);
         } else if (cityCode.equals("Porto")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityporto);
         } else if (cityCode.equals("Lisboa")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citylisboa);
         } else if (cityCode.equals("Braga")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citybraga);
         } else if (cityCode.equals("Bruselas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citybruselas);
         } else if (cityCode.equals("Brujas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citybrujas);
         } else if (cityCode.equals("Amberes")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityamberes);
         } else if (cityCode.equals("Oslo")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityoslo);
         } else if (cityCode.equals("Bergen")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citybergen);
         } else if (cityCode.equals("Tromso")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citytromso);
         } else if (cityCode.equals("Londres")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citylondres);
         } else if (cityCode.equals("Manchester")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.citymanchester);
         } else if (cityCode.equals("Liverpool")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityliverpool);
         } else if (cityCode.equals("Amsterdam")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityamsterdam);
         } else if (cityCode.equals("Rotterdam")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityrotterdam);
         } else if (cityCode.equals("Utrecht")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+            holder.imageCiudad.setImageResource(R.drawable.cityutrecht);
         }
 
         holder.nombreCiudad.setText(ciudad.getNombre());
         holder.descripcionCiudad.setText(ciudad.getDescripcion());
         holder.like.setImageResource(R.drawable.buttonlike);
+        holder.like.setOnTouchListener(new View.OnTouchListener() {
+            private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
+                    new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onDoubleTap(MotionEvent e) {
+                            holder.like.setImageResource(R.drawable.buttonlikered);   return true;
+                        }
+                    });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
     }
 
     @Override
