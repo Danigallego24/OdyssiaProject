@@ -28,7 +28,7 @@
         android:layout_height="90dp"
         android:contentDescription="@string/nav_header_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/photoinsert" />
@@ -37,22 +37,16 @@
         android:id="@+id/twUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="22dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/iwUsuario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"  />
+        app:layout_constraintTop_toBottomOf="@id/iwUsuario" />
 
-    <TextView
-        android:id="@+id/twEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nav_header_subtitle"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/twUsuario"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

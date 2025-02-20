@@ -44,18 +44,17 @@ public class ListaPromocionesSingelton {
         promociones.setNombre("Pack");
 
         listaPromociones.add(promociones);
-
         promociones = new Promociones();
         promociones.setId(1);
-        promociones.setNombre("Pack");
+        promociones.setNombre("Rebajas");
 
         listaPromociones.add(promociones);
-
         promociones = new Promociones();
         promociones.setId(2);
         promociones.setNombre("Pack");
 
         listaPromociones.add(promociones);
+
 
         Log.i("ListaPromocionesSingleton", "########" + promociones);
     }

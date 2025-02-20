@@ -2,9 +2,11 @@ package com.example.odyssiaproject;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -13,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.odyssiaproject.adaptador.AdaptadorCiudades;
-import com.example.odyssiaproject.adaptador.AdaptadorPaises;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Pais;
@@ -24,7 +25,7 @@ import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityActivity extends AppCompatActivity {
+public class CityActivity extends ConfigurationActivity {
     private RecyclerView recyclerViewCiudades;
     private AdaptadorCiudades ciudadesAdapter;
     private AdaptadorPromociones adaptadorPromociones;
@@ -32,6 +33,7 @@ public class CityActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
     private List<Ciudad> ciudadesList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
@@ -49,26 +51,36 @@ public class CityActivity extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
 
-        ListaPromocionesSingelton.getInstance().inicializar();
         List<Promociones> listaPromociones = ListaPromocionesSingelton.getInstance().getListaPromociones();
         adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
         recyclerViewPromociones.setAdapter(adaptadorPromociones);
         handler.postDelayed(scrollRunnable, 1000);
 
         String paisSeleccionado = getIntent().getStringExtra("pais");
+        Log.i("CityActivity", "País recibido: " + paisSeleccionado);
         ciudadesList = new ArrayList<>();
         Pais pais = ListaPaisesSingelton.getInstance().getPaisByName(paisSeleccionado);
-        if (pais != null && pais.getListaCiudades() != null) {
-            ciudadesList = pais.getListaCiudades();
-        }
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        ciudadesList = pais.getListaCiudades();
         recyclerViewCiudades = findViewById(R.id.rwCities);
         recyclerViewCiudades.setHasFixedSize(true);
-        recyclerViewCiudades.setLayoutManager(gridLayoutManager);
+        recyclerViewCiudades.setLayoutManager(
+                new GridLayoutManager(this, 2));
 
         ciudadesAdapter = new AdaptadorCiudades(ciudadesList);
         recyclerViewCiudades.setAdapter(ciudadesAdapter);
+        for (Ciudad ciudad : ciudadesList) {
+            Log.i("DEBUG", "Ciudad: " + ciudad.getNombre());
+        }
+        Log.i("DEBUG", "Ciudades encontradas: " + ciudadesList.size());
+
+
+        ImageButton btnAbrirMenu = findViewById(R.id.btnMenu);
+        btnAbrirMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDrawer();
+            }
+        });
 
     }
     private Runnable scrollRunnable = new Runnable() {
@@ -83,5 +95,11 @@ public class CityActivity extends AppCompatActivity {
             handler.postDelayed(this, 50);
         }
     };
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adaptadorPromociones.notifyDataSetChanged();
+        ciudadesAdapter.notifyDataSetChanged();
+    }
 
 }

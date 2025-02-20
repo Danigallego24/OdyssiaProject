@@ -34,7 +34,7 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
 
         public ViewHolder(View v) {
             super(v);
-            imageCiudad = v.findViewById(R.id.imageCountries);
+            imageCiudad = v.findViewById(R.id.imageView);
             nombreCiudad = v.findViewById(R.id.tvNameCity);
             like = v.findViewById(R.id.buttonLikeCity);
             descripcionCiudad = v.findViewById(R.id.descriptionCity);
@@ -52,77 +52,76 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GestorCiudades gC = new GestorCiudades();
         Ciudad ciudad = listaCiudades.get(position);
-        if (gC.imagenCiudad(ciudad).equals("Madrid")) {
+
+        GestorCiudades gC = new GestorCiudades();
+        String cityCode = gC.imagenCiudad(ciudad);
+
+        if (cityCode.equals("Madrid")) {
             holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Barcelona")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Sevilla")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Roma")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Florencia")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Venecia")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Paris")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Lyon")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Marsella")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Zurich")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Ginebra")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Berna")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Santorini")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Atenas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Salonica")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Porto")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Lisboa")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Braga")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Bruselas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Brujas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Amberes")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Oslo")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Bergen")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Tromso")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Londres")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Manchester")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Liverpool")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Amsterdan")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Rotterdam")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (gC.imagenCiudad(ciudad).equals("Utrecht")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
+        } else if (cityCode.equals("Barcelona")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Sevilla")) {
+            holder.imageCiudad.setImageResource(R.drawable.citysevilla);
+        } else if (cityCode.equals("Roma")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Florencia")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Venecia")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Paris")) {
+            holder.imageCiudad.setImageResource(R.drawable.cityparis);
+        } else if (cityCode.equals("Lyon")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Marsella")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Zurich")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Ginebra")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Berna")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Santorini")) {
+            holder.imageCiudad.setImageResource(R.drawable.citysantorini);
+        } else if (cityCode.equals("Atenas")) {
+            holder.imageCiudad.setImageResource(R.drawable.cityatenas);
+        } else if (cityCode.equals("Salonica")) {
+            holder.imageCiudad.setImageResource(R.drawable.citysalonica);
+        } else if (cityCode.equals("Porto")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Lisboa")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Braga")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Bruselas")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Brujas")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Amberes")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Oslo")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Bergen")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Tromso")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Londres")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Manchester")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Liverpool")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Amsterdam")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Rotterdam")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
+        } else if (cityCode.equals("Utrecht")) {
+            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
         }
+
         holder.nombreCiudad.setText(ciudad.getNombre());
-        holder.like.setImageResource(R.drawable.buttonlike);
         holder.descripcionCiudad.setText(ciudad.getDescripcion());
-        if (position % 2 == 0) {
-            holder.itemView.getLayoutParams().height = 400;
-        } else {
-            holder.itemView.getLayoutParams().height = 200;
-        }
+        holder.like.setImageResource(R.drawable.buttonlike);
     }
 
     @Override

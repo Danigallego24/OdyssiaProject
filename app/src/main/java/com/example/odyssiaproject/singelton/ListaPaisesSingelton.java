@@ -26,7 +26,7 @@ public class ListaPaisesSingelton {
 
     public Pais getPaisByName(String nombre) {
         for (Pais p : listPaises) {
-            if (p.getNombre().equals(nombre)) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
                 return p;
             }
         }
@@ -34,72 +34,73 @@ public class ListaPaisesSingelton {
     }
 
 
-        public void inicializar(){
+    public void inicializar(){
         listaCiudades = ListaCiudadesSingelton.getInstance().getListaCiudades();
         listPaises = new ArrayList<>();
-        listaCiudades = new ArrayList<>();
         Pais pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("España");
-        pais.setListaCiudades(obtenerCiudadesPorPais("España", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Italia");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Italia", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Francia");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Francia", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Suiza");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Suiza", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Grecia");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Grecia", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Portugal");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Portugal", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
 
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Belgica");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Belgica", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Noruega");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Noruega", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
-        pais.setNombre("Inglatera");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Inglaterra", listaCiudades));
+        pais.setNombre("Inglaterra");
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
         pais = new Pais();
         pais.setId(contador++);
         pais.setNombre("Holanda");
-        pais.setListaCiudades(obtenerCiudadesPorPais("Holanda", listaCiudades));
+        pais.setListaCiudades(obtenerCiudadesPorPais(pais.getNombre(), listaCiudades));
         listPaises.add(pais);
 
-        Log.i("ListaPaisesSingleton", "########" + pais);
+        for (Pais p : listPaises) {
+            Log.i("ListaPaises", "País: " + p.getNombre());
+        }
     }
     private List<Ciudad> obtenerCiudadesPorPais(String nombrePais, List<Ciudad> ciudades) {
         List<Ciudad> resultado = new ArrayList<>();
@@ -167,7 +168,7 @@ public class ListaPaisesSingelton {
                     resultado.add(c);
                 }
             }
-        } else if (nombrePais.equals("Inglatera")) {
+        } else if (nombrePais.equals("Inglaterra")) {
             for (Ciudad c : ciudades) {
                 if (c.getNombre().equals("Londres") ||
                         c.getNombre().equals("Manchester") ||
@@ -175,15 +176,17 @@ public class ListaPaisesSingelton {
                     resultado.add(c);
                 }
             }
-        } else if (nombrePais.equals("Holanda")) {
+
+    } else if (nombrePais.equals("Holanda")) {
             for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Amsterdan") ||
+                if (c.getNombre().equals("Amsterdam") ||
                         c.getNombre().equals("Rotterdam") ||
                         c.getNombre().equals("Utrecht")) {
                     resultado.add(c);
                 }
             }
         }
+
         return resultado;
     }
 
