@@ -64,7 +64,7 @@ public class LogIn extends AppCompatActivity {
                     public void onSuccess(FirebaseUser user) {
                         Toast.makeText(LogIn.this, "Inicio de sesión exitoso: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                         // Redirigir a la actividad principal
-                        startActivity(new Intent(LogIn.this, HomeFragment.class));
+                        startActivity(new Intent(LogIn.this, MainActivity.class));
                         finish();
                     }
 

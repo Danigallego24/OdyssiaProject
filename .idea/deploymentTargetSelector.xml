@@ -4,10 +4,17 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+<<<<<<< HEAD
         <DropdownSelection timestamp="2025-02-20T18:07:48.288184100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\RubenPerezGonzalez\.android\avd\Medium_Phone_API_35.avd" />
+=======
+        <DropdownSelection timestamp="2025-02-20T10:49:56.875550400Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\34633\.android\avd\Small_Phone_API_35.avd" />
+>>>>>>> GallegoBranch
             </handle>
           </Target>
         </DropdownSelection>

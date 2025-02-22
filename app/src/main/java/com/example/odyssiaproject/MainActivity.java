@@ -1,32 +1,26 @@
 package com.example.odyssiaproject;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentTransaction;
 import com.example.odyssiaproject.ui.ajustes.ConfigFragment;
 import com.example.odyssiaproject.ui.favs.FavsFragment;
 import com.example.odyssiaproject.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class OptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private ImageButton btnMenu;
     DrawerLayout drawerLayout;
@@ -36,10 +30,11 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_option);
+        setContentView(R.layout.activity_main);
 
         drawerLayout = findViewById(R.id.navBarDrawer);
         navigationView = findViewById(R.id.navBarView);
+        navigationView.setNavigationItemSelectedListener(this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,15 +43,8 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            // Aquí puedes manejar los clics en los elementos del menú lateral
-            drawerLayout.closeDrawer(GravityCompat.START); // Cierra el menú al hacer clic
-            return true;
-        });
-
-        if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.optionPage, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.navInicio);
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
         }
 
         btnMenu = findViewById(R.id.btnMenu);
@@ -65,7 +53,7 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 // Log para verificar que el clic se está registrando
-                Log.d("OptionActivity", "Botón de menú presionado");
+                Log.d("MainActivity", "Botón de menú presionado");
 
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -81,25 +69,17 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Fragment fragment = null;
-
         Log.d("NAVIGATION", "Item seleccionado: " + item.getItemId());
 
         if (item.getItemId() == R.id.navInicio) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            return true;
+            Log.d("NAVIGATION", "Cargando HomeFragment...");
+            loadFragment(new HomeFragment());
         } else if (item.getItemId() == R.id.navFavoritos) {
-            Log.d("NAVIGATION", "Cargando FragmentFavs...");
-            fragment = new FavsFragment();
+            Log.d("NAVIGATION", "Cargando FavsFragment...");
+            loadFragment(new FavsFragment());
         } else if (item.getItemId() == R.id.navConfiguracion) {
             Log.d("NAVIGATION", "Cargando ConfigFragment...");
-            fragment = new ConfigFragment();
-        }
-
-        if (fragment != null) {
-            Log.d("NAVIGATION", "Llamando a loadFragment...");
-            loadFragment(fragment);
+            loadFragment(new ConfigFragment());
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -107,11 +87,9 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
     }
 
     private void loadFragment(Fragment fragment) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.optionPage);
-        if (currentFragment != null && currentFragment.getClass() == fragment.getClass()) {
-            return;
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.optionPage, fragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);  // Reemplaza el contenedor
+        transaction.commit();
     }
 
     // Para manejar la apertura y cierre del Drawer desde el botón de la barra de acción
@@ -122,5 +100,4 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
