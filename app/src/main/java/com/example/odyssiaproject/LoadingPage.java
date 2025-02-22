@@ -16,14 +16,14 @@ public class LoadingPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_page);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+       findViewById(android.R.id.content).postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(LoadingPage.this,LogIn.class));
+                Intent intent = new Intent(LoadingPage.this, LogIn.class);
+                startActivity(intent);
                 finish();
             }
-        },4000);
-
+        }, 4000);
     }
 }

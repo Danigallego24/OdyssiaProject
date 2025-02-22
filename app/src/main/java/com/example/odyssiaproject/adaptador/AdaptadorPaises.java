@@ -17,39 +17,21 @@ import com.example.odyssiaproject.negocio.GestorPaises;
 
 import java.util.List;
 
-/**
- * Adaptador para gestionar la lista de países en un RecyclerView.
- * Permite mostrar los países con su respectiva imagen y manejar eventos de clic.
- */
 public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder>{
     private Pais p;
     private List<Pais> listaPais;
-    /**
-     * Constructor del adaptador.
-     *
-     * @param listaPaises Lista de países a mostrar.
-     */
     public AdaptadorPaises(List<Pais> listaPaises) {
         this.listaPais = listaPaises;
     }
-    /**
-     * ViewHolder que representa cada ítem de la lista.
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageButton imagenPais;
-        /**
-         * Constructor del ViewHolder.
-         *
-         * @param v Vista que representa el ítem.
-         */
+
         public ViewHolder(View v) {
             super(v);
             imagenPais = v.findViewById(R.id.imageCountries);
         }
     }
-    /**
-     * Infla el diseño XML de cada elemento de la lista.
-     */
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,12 +39,7 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
         AdaptadorPaises.ViewHolder viewHolder = new AdaptadorPaises.ViewHolder(v);
         return viewHolder;
     }
-    /**
-     * Asigna datos a cada elemento de la lista en función de su posición.
-     *
-     * @param holder   ViewHolder del ítem.
-     * @param position Posición del ítem en la lista.
-     */
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GestorPaises nP = new GestorPaises();
@@ -103,11 +80,7 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
         });
     }
 
-    /**
-     * Devuelve el número total de elementos en la lista.
-     *
-     * @return Tamaño de la lista de países.
-     */
+
     @Override
     public int getItemCount() {
         return listaPais.size();
