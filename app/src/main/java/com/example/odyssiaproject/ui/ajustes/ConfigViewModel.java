@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModel;
 
 public class ConfigViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<Boolean> notificacionesActivas;
 
     public ConfigViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        notificacionesActivas = new MutableLiveData<>(false);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<Boolean> getNotificacionesActivas() {
+        return notificacionesActivas;
+    }
+
+    public void cambiarEstadoNotificaciones(boolean estado) {
+        notificacionesActivas.setValue(estado);
     }
 }
