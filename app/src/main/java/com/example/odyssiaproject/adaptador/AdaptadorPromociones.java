@@ -31,9 +31,9 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
     }
     @NonNull
     @Override
-    public AdaptadorPromociones.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_promotions, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+        AdaptadorPromociones.ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
