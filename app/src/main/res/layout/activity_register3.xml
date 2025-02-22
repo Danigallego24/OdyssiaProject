@@ -44,7 +44,7 @@
                 android:layout_height="49dp"
                 android:layout_marginTop="35dp"
                 android:background="@drawable/textdate"
-                android:hint="Fecha de Nacimiento"
+                android:hint="00/00/0000  fecha"
                 android:inputType="text"
                 android:paddingLeft="50dp"
                 android:textColor="@color/black"

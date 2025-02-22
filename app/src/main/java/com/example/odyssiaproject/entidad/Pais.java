@@ -5,7 +5,10 @@ import java.util.List;
 public class Pais {
     private int id;
     private List<Ciudad> listaCiudades;
-    private String Nombre;
+    
+    private String nombre;
+
+    private String imagen;
 
     public int getId() {
         return id;
@@ -24,11 +27,19 @@ public class Pais {
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        nombre = nombre;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     @Override
@@ -36,7 +47,8 @@ public class Pais {
         return "Pais{" +
                 "id=" + id +
                 ", listaCiudades=" + listaCiudades +
-                ", Nombre='" + Nombre + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", imagen='" + imagen + '\'' +
                 '}';
     }
 }
