@@ -18,15 +18,26 @@ import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.negocio.GestorCiudades;
 
 import java.util.List;
-
+/**
+ * Adaptador para gestionar la lista de ciudades en un RecyclerView.
+ * Muestra cada ciudad con su imagen, nombre, descripción y botón de "Me gusta".
+ */
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
     private Ciudad c;
     private List<Ciudad> listaCiudades;
 
+    /**
+     * Constructor del adaptador.
+     *
+     * @param listaCiudades Lista de ciudades a mostrar.
+     */
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
     }
 
+    /**
+     * ViewHolder que representa cada ítem de la lista.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageCiudad;
         private TextView nombreCiudad;
@@ -34,6 +45,11 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         private TextView descripcionCiudad;
         private Button abrir;
 
+        /**
+         * Constructor del ViewHolder.
+         *
+         * @param v Vista que representa el ítem.
+         */
         public ViewHolder(View v) {
             super(v);
             imageCiudad = v.findViewById(R.id.imageView);
@@ -54,10 +70,10 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Ciudad ciudad = listaCiudades.get(position);
+         c = listaCiudades.get(position);
 
         GestorCiudades gC = new GestorCiudades();
-        String cityCode = gC.imagenCiudad(ciudad);
+        String cityCode = gC.imagenCiudad(c);
 
         if (cityCode.equals("Madrid")) {
             holder.imageCiudad.setImageResource(R.drawable.citymadrid);
@@ -121,8 +137,8 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
             holder.imageCiudad.setImageResource(R.drawable.cityutrecht);
         }
 
-        holder.nombreCiudad.setText(ciudad.getNombre());
-        holder.descripcionCiudad.setText(ciudad.getDescripcion());
+        holder.nombreCiudad.setText(c.getNombre());
+        holder.descripcionCiudad.setText(c.getDescripcion());
         holder.like.setImageResource(R.drawable.buttonlike);
         holder.like.setOnTouchListener(new View.OnTouchListener() {
             private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
@@ -139,7 +155,11 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
             }
         });
     }
-
+    /**
+     * Devuelve el número total de elementos en la lista.
+     *
+     * @return Tamaño de la lista de ciudades.
+     */
     @Override
     public int getItemCount() {
         return listaCiudades.size();

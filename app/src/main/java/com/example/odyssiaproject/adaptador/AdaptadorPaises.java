@@ -15,11 +15,9 @@ import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.negocio.GestorPaises;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder> {
+public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder>{
     private Pais p;
     private List<Pais> listaPais;
     public AdaptadorPaises(List<Pais> listaPaises) {
@@ -87,5 +85,7 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
     public int getItemCount() {
         return listaPais.size();
     }
+
+
 
 }
