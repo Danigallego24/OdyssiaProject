@@ -14,23 +14,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.adaptador.AdaptadorPaises;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
+import com.example.odyssiaproject.entidad.FirestoreDocument;
+import com.example.odyssiaproject.entidad.FirestoreResponse;
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
+import com.example.odyssiaproject.persistencia.api.ApiService;
+import com.example.odyssiaproject.persistencia.api.RetrofitClient;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
+import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerViewPromociones;
     private RecyclerView recyclerViewPaises;
+
+    private List<Pais> listaPaises = new ArrayList<>();
     private AdaptadorPromociones adaptadorPromociones;
     private AdaptadorPaises adaptadorPaises;
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
+
+    // Retrofit API para Firestore
+    private ApiService apiService;
 
     private final Runnable scrollRunnable = new Runnable() {
 
@@ -89,9 +104,32 @@ public class HomeFragment extends Fragment {
             Log.d("HomeFragment", "Lista de países está vacía.");
         }
 
+        apiService = RetrofitClient.getApiService();
+        loadCountries();
+
         return root;
     }
 
+    private void loadCountries() {
+        // Reemplaza "TU_PROJECT_ID" por el ID de tu proyecto de Firebase
+        Call<JsonObject> call = apiService.getPaises(); // Ahora devuelve JsonObject
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("MainActivity", "Respuesta Firestore: " + response.body().toString());
+                } else {
+                    Log.e("MainActivity", "Error al obtener países: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("MainActivity", "Fallo en la petición: " + t.getMessage());
+            }
+        });
+    }
     @Override
     public void onResume() {
         super.onResume();

@@ -4,31 +4,57 @@ import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 
 public class GestorPaises {
-    private ListaPaisesSingelton listaPaises;
-    public String imagenPaises(Pais p){
-        listaPaises = ListaPaisesSingelton.getInstance();
-        Pais pais = listaPaises.getPaisByName(p.getNombre());
-        if(pais.getNombre().equals("España")){
-            return "España";
-        } else if (pais.getNombre().equals("Italia")) {
-            return "Italia";
-        }else if (pais.getNombre().equals("Francia")) {
-            return "Francia";
-        }else if (pais.getNombre().equals("Suiza")) {
-            return "Suiza";
-        }else if (pais.getNombre().equals("Grecia")) {
-            return "Grecia";
-        }else if (pais.getNombre().equals("Portugal")) {
-            return "Portugal";
-        }else if (pais.getNombre().equals("Belgica")) {
-            return "Belgica";
-        }else if (pais.getNombre().equals("Noruega")) {
-            return "Noruega";
-        }else if (pais.getNombre().equals("Inglaterra")) {
-            return "Inglaterra";
-        } else if (pais.getNombre().equals("Holanda")) {
-            return "Holanda";
+
+    private final ListaPaisesSingelton listaPaises;
+
+    public GestorPaises() {
+        // Inicializamos una sola vez el singleton
+        this.listaPaises = ListaPaisesSingelton.getInstance();
+    }
+
+    /**
+     * Retorna un código o nombre de país que se utilizará para seleccionar la imagen.
+     * Si el país no se encuentra o no coincide, se retorna "0" (o podrías retornar un valor por defecto).
+     *
+     * @param p Objeto Pais con el nombre a buscar.
+     * @return El nombre del país si coincide o "0" si no se encuentra.
+     */
+    public String imagenPaises(Pais p) {
+        if (p == null || p.getNombre() == null) {
+            return "0";
         }
-        return "0";
+        // Se busca el país en el singleton (podría hacerse para validar que exista)
+        Pais pais = listaPaises.getPaisByName(p.getNombre());
+        if (pais == null) {
+            return "0";
+        }
+        String nombrePais = pais.getNombre();
+
+        // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
+        // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.
+        switch (nombrePais) {
+            case "espania":
+                return "espania";
+            case "italia":
+                return "italia";
+            case "francia":
+                return "francia";
+            case "suiza":
+                return "suiza";
+            case "grecia":
+                return "grecia";
+            case "portugal":
+                return "portugal";
+            case "belgica":
+                return "belgica";
+            case "noruega":
+                return "noruega";
+            case "inglaterra":
+                return "inglaterra";
+            case "holanda":
+                return "holanda";
+            default:
+                return "0";
+        }
     }
 }
