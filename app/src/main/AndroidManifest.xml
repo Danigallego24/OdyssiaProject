@@ -12,10 +12,8 @@
         android:roundIcon="@mipmap/odyssialogoapp_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OdyssiaProject"
-        tools:targetApi="31">
-        <activity
-            android:name=".ConfigurationActivity"
-            android:exported="false"  />
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".OptionActivity"
             android:exported="false" />
@@ -38,7 +36,7 @@
             android:name=".Registro4Activity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeFragment"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity android:name=".CityActivity"
             android:exported="false" />
@@ -55,8 +53,6 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
 </manifest>

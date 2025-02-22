@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 public class FavsViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private MutableLiveData<String> mText;
 
     public FavsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is fav fragment");
+        mText = new MutableLiveData<String>();
+        mText.setValue("Bienvenido a la galeria de favoritos");
     }
 
     public LiveData<String> getText() {

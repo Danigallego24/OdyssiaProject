@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/iwFondo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="boton para cambiar de foto"
         android:src="@mipmap/editbackground"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +25,12 @@
     <ImageView
         android:id="@+id/iwUsuario"
         android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_height="95dp"
         android:contentDescription="@string/nav_header_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/photoinsert" />
+        android:src="@mipmap/photoinsert" />
 
     <TextView
         android:id="@+id/twUsuario"
@@ -39,7 +38,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +46,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iwUsuario" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
