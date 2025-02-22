@@ -17,12 +17,19 @@ import com.example.odyssiaproject.negocio.GestorPaises;
 
 import java.util.List;
 
-public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder>{
-    private Pais p;
+public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder> {
+
+    // Lista de países que se mostrará en el RecyclerView
     private List<Pais> listaPais;
+    // GestorPaises para obtener la imagen (o código) de cada país.
+    private GestorPaises gestorPaises;
+
     public AdaptadorPaises(List<Pais> listaPaises) {
         this.listaPais = listaPaises;
+        this.gestorPaises = new GestorPaises();
     }
+
+    // Clase ViewHolder que representa cada item (país) en el RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageButton imagenPais;
 
@@ -35,18 +42,23 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Infla el layout para cada item (item_countries.xml)
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_countries, parent, false);
-        AdaptadorPaises.ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GestorPaises nP = new GestorPaises();
-        p = listaPais.get(position);
-        Log.i("AdaptadorPaises", "Posición: " + position + " - País: " + p.getNombre());
-        String codigoPais = nP.imagenPaises(p);
-        if (codigoPais.equals("España")) {
+        // Obtiene el país correspondiente a la posición
+        Pais paisActual = listaPais.get(position);
+        Log.i("AdaptadorPaises", "Posición: " + position + " - País: " + paisActual.getNombre());
+
+        // Obtiene el código/nombre de imagen que se usará para elegir el recurso adecuado
+        String codigoPais = gestorPaises.imagenPaises(paisActual);
+
+        // Asigna el recurso de imagen según el código obtenido
+        if (codigoPais.equals("Espania")) {
             holder.imagenPais.setImageResource(R.drawable.listaspain);
         } else if (codigoPais.equals("Italia")) {
             holder.imagenPais.setImageResource(R.drawable.listaitaly);
@@ -68,11 +80,13 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
             holder.imagenPais.setImageResource(R.drawable.listanetherlands);
         }
 
+        // Configura el click sobre el botón de imagen para abrir la CityActivity
         holder.imagenPais.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Pais paisClick = listaPais.get(pos);
                 Log.i("DEBUG", "País enviado a CityActivity: " + paisClick.getNombre());
+                // Inicia la Activity de ciudades y pasa el nombre del país (o también su ID si lo necesitas)
                 Intent intent = new Intent(v.getContext(), CityActivity.class);
                 intent.putExtra("pais", paisClick.getNombre());
                 v.getContext().startActivity(intent);
@@ -80,12 +94,8 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
         });
     }
 
-
     @Override
     public int getItemCount() {
         return listaPais.size();
     }
-
-
-
 }
