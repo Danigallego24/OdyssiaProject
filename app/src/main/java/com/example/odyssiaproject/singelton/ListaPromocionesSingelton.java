@@ -43,6 +43,10 @@ public class ListaPromocionesSingelton {
      * @return La promoción correspondiente al ID, o null si no se encuentra.
      */
     public Promociones getPromocionById(int id) {
+        if(listaPromociones == null){
+            Log.e("ListaPromociones", "Lista de promociones nula");
+            return null;
+        }
         for (Promociones p : listaPromociones) {
             if (p.getId() == id) {
                 return p;
@@ -68,24 +72,19 @@ public class ListaPromocionesSingelton {
         listaPromociones.add(promociones);
 
         promociones = new Promociones();
-        promociones.setId(1);
+        promociones.setId(contador++);
         promociones.setNombre("Rebajas");
         listaPromociones.add(promociones);
 
         promociones = new Promociones();
-        promociones.setId(2);
+        promociones.setId(contador++);
         promociones.setNombre("Pack");
         listaPromociones.add(promociones);
 
         // Imprime la última promoción agregada en los logs.
-        Log.i("ListaPromocionesSingleton", "########" + promociones);
+        Log.i("ListaPromocionesSingleton", "tamaño lista" + listaPromociones.size());
     }
 
-    /**
-     * Devuelve la lista de promociones disponibles.
-     *
-     * @return Lista de objetos Promociones.
-     */
     public List<Promociones> getListaPromociones() {
         return listaPromociones;
     }

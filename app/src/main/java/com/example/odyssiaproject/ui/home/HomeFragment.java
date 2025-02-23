@@ -68,18 +68,22 @@ public class HomeFragment extends Fragment {
         recyclerViewPromociones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Obtener lista de promociones desde el Singleton
-        ListaPromocionesSingelton.getInstance().inicializar();
         List<Promociones> listaPromociones = ListaPromocionesSingelton.getInstance().getListaPromociones();
+        if(listaPromociones == null){
+            listaPromociones = new ArrayList<>(); // evitamois null pointer
+        }
+
+        adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
+        recyclerViewPromociones.setAdapter(adaptadorPromociones);
 
         // Comprobar si la lista de promociones tiene elementos antes de asignar el adaptador
-        if (listaPromociones != null && !listaPromociones.isEmpty()) {
+        if (listaPromociones.isEmpty()) {
             adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
             recyclerViewPromociones.setAdapter(adaptadorPromociones);
         } else {
             Log.d("HomeFragment", "Lista de promociones está vacía.");
         }
 
-        // Iniciar el desplazamiento automático en el RecyclerView
         handler.postDelayed(scrollRunnable, 1000);
 
         // Configurar RecyclerView de Países
@@ -98,7 +102,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadCountries() {
-        // Reemplaza "TU_PROJECT_ID" por el ID de tu proyecto de Firebase
+
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("paises")

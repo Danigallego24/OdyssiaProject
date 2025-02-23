@@ -32,29 +32,6 @@ public class GestorPaises {
 
         // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
         // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.
-        switch (nombrePais) {
-            case "espania":
-                return "espania";
-            case "italia":
-                return "italia";
-            case "francia":
-                return "francia";
-            case "suiza":
-                return "suiza";
-            case "grecia":
-                return "grecia";
-            case "portugal":
-                return "portugal";
-            case "belgica":
-                return "belgica";
-            case "noruega":
-                return "noruega";
-            case "inglaterra":
-                return "inglaterra";
-            case "holanda":
-                return "holanda";
-            default:
-                return "0";
-        }
+       return pais.getImagen();
     }
 }

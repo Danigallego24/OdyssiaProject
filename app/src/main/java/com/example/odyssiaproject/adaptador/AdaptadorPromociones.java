@@ -22,6 +22,7 @@ import java.util.List;
 public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromociones.ViewHolder> {
     private Promociones p;
     private List<Promociones> listaPromociones;
+
     /**
      * Constructor del adaptador.
      *
@@ -30,6 +31,7 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
     public AdaptadorPromociones(List<Promociones> listaPromociones) {
         this.listaPromociones = listaPromociones;
     }
+
     /**
      * ViewHolder que representa cada ítem de la lista.
      */
@@ -46,6 +48,7 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
             imagenPromocion = v.findViewById(R.id.imagePromotion);
         }
     }
+
     /**
      * Infla el diseño XML de cada elemento de la lista.
      */
@@ -56,6 +59,7 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
         AdaptadorPromociones.ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
+
     /**
      * Asigna datos a cada elemento de la lista en función de su posición.
      *
@@ -64,21 +68,34 @@ public class AdaptadorPromociones extends RecyclerView.Adapter<AdaptadorPromocio
      */
     @Override
     public void onBindViewHolder(@NonNull AdaptadorPromociones.ViewHolder holder, int position) {
-        GestorPromociones nP = new GestorPromociones();
         p = listaPromociones.get(position);
-        if (nP.imagenPromocion(p) == 1){
+
+        if (p == null) {
+            // Manejo de error: muestra una imagen por defecto o un placeholder
             holder.imagenPromocion.setImageResource(R.drawable.imgpromotion);
-        } else if (nP.imagenPromocion(p) == 2) {
+            return; // Detiene la ejecución para evitar el NullPointerException
+        }
+
+        GestorPromociones nP = new GestorPromociones();
+        int resultadoImagen = nP.imagenPromocion(p); // Llama al método UNA sola vez
+
+        if (resultadoImagen == 1) {
             holder.imagenPromocion.setImageResource(R.drawable.imgpromotion2);
+        } else if (resultadoImagen == 2) {
+            holder.imagenPromocion.setImageResource(R.drawable.imgpromotion);
+        } else {
+            // Opcional: Imagen por defecto si no coincide con ningún caso
+            holder.imagenPromocion.setImageResource(R.drawable.imgpromotion);
         }
     }
-    /**
-     * Devuelve el número total de elementos en la lista.
-     *
-     * @return Tamaño de la lista de promociones.
-     */
-    @Override
-    public int getItemCount() {
-        return listaPromociones.size();
+        /**
+         * Devuelve el número total de elementos en la lista.
+         *
+         * @return Tamaño de la lista de promociones.
+         */
+        @Override
+        public int getItemCount(){
+            return listaPromociones.size();
+        }
     }
-}
+

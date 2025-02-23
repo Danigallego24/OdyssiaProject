@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.odyssiaproject.CityActivity;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Pais;
@@ -49,33 +51,23 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Pais paisActual = listaPais.get(position);
-        Log.i("AdaptadorPaises", "Posición: " + position + " - País: " + paisActual.getNombre());
+        String imagenPaisesUrl = new GestorPaises().imagenPaises(paisActual);
+        if (imagenPaisesUrl == null || imagenPaisesUrl.isEmpty()) {
+            Log.w("Glide", "URL de la imagen es nula o vacía para el país: " + paisActual.getNombre());
+            imagenPaisesUrl = "url_default_image";  // Asigna una URL predeterminada o usa una imagen local
+        }
 
-        // Obtiene el código/nombre de imagen que se usará para elegir el recurso adecuado
-        String codigoPais = gestorPaises.imagenPaises(paisActual);
+        Log.d("Glide", "Cargando imagen desde: " + imagenPaisesUrl);
 
         // Asigna el recurso de imagen según el código obtenido
-        if (codigoPais.equals("Espania")) {
-            holder.imagenPais.setImageResource(R.drawable.listaspain);
-        } else if (codigoPais.equals("Italia")) {
-            holder.imagenPais.setImageResource(R.drawable.listaitaly);
-        } else if (codigoPais.equals("Francia")) {
-            holder.imagenPais.setImageResource(R.drawable.listafrance);
-        } else if (codigoPais.equals("Suiza")) {
-            holder.imagenPais.setImageResource(R.drawable.listaswitzerland);
-        } else if (codigoPais.equals("Grecia")) {
-            holder.imagenPais.setImageResource(R.drawable.listagreece);
-        } else if (codigoPais.equals("Portugal")) {
-            holder.imagenPais.setImageResource(R.drawable.listaportugal);
-        } else if (codigoPais.equals("Belgica")) {
-            holder.imagenPais.setImageResource(R.drawable.listabelgium);
-        } else if (codigoPais.equals("Noruega")) {
-            holder.imagenPais.setImageResource(R.drawable.listanorway);
-        } else if (codigoPais.equals("Inglaterra")) {
-            holder.imagenPais.setImageResource(R.drawable.listaengland);
-        } else if (codigoPais.equals("Holanda")){
-            holder.imagenPais.setImageResource(R.drawable.listanetherlands);
-        }
+        Log.d("MUONES DE MIERDA", "Cargando imagen desde: " + paisActual.getNombre());
+        Glide.with(holder.itemView.getContext())
+                .load(paisActual.getNombre())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                // Imagen de error
+                .into(holder.imagenPais);
+
 
         // Configura el click sobre el botón de imagen para abrir la CityActivity
         holder.imagenPais.setOnClickListener(v -> {
