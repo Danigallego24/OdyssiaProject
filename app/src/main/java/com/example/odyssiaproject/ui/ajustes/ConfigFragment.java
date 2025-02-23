@@ -71,7 +71,7 @@ public class ConfigFragment extends Fragment {
         btnAcercaDe.setOnClickListener(v -> {
             new AlertDialog.Builder(getActivity())
                     .setTitle("Acerca de Odyssia")
-                    .setMessage("Odyssia v1.0\nAplicación desarrollada por XYZ.")
+                    .setMessage("Odyssia v1.0\nAplicación desarrollada por Odyssia Project.")
                     .setPositiveButton("OK", null)
                     .show();
         });
