@@ -7,12 +7,13 @@ public class RetrofitClient {
     private static Retrofit retrofit;
 
     private static ApiService apiService;
-    private static final String URL = "https://firestore.googleapis.com/v1/projects/odyssiaproject-ff99f/databases/(default)/documents";
+    private static final String URL = "https://firestore.googleapis.com/v1/projects/odyssiaproject-ff99f/databases/(default)/documents/";
+
 
     public static ApiService getApiService() {
         if (apiService == null) {
             // Configurar Retrofit
-            Retrofit retrofit = new Retrofit.Builder()
+            retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

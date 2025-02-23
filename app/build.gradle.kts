@@ -41,9 +41,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("com.google.android.gms:play-services-auth:20.0.1")
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -57,4 +60,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 }

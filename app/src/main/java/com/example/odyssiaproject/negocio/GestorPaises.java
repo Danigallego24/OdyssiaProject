@@ -28,7 +28,7 @@ public class GestorPaises {
         if (pais == null) {
             return "0";
         }
-        String nombrePais = pais.getNombre();
+        String nombrePais = pais.getNombre().toLowerCase();
 
         // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
         // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.

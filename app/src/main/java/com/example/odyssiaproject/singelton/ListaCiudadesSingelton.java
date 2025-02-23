@@ -12,7 +12,7 @@ public class ListaCiudadesSingelton {
     private int contador = 1;
 
     private ListaCiudadesSingelton(){
-        super();
+        listCiudades = new ArrayList<>();  // Inicializa la lista de ciudades
     }
 
     public static ListaCiudadesSingelton getInstance() {
@@ -77,17 +77,18 @@ public class ListaCiudadesSingelton {
             Log.i("ListaCiudadesSingleton", "Lista de ciudades inicializada con éxito.");
     }
 
+    // Método privado para agregar una ciudad
     private void agregarCiudad(String nombreCiudad, String nombrePais, String descripcion) {
         Ciudad ciudad = new Ciudad();
-        ciudad.setId(contador++);
+        ciudad.setId(contador++);  // Se incrementa el contador
         ciudad.setNombre(nombreCiudad);
         ciudad.setDescripcion(descripcion);
 
         Pais pais = new Pais();
         pais.setNombre(nombrePais);
-        ciudad.setPais(pais);
+        ciudad.setPais(pais);  // Se asigna el país a la ciudad
 
-        listCiudades.add(ciudad);
+        listCiudades.add(ciudad);  // Se agrega la ciudad a la lista
     }
 
     public List<Ciudad> getListaCiudades() {

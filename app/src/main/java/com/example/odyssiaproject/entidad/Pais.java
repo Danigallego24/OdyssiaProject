@@ -1,13 +1,12 @@
 package com.example.odyssiaproject.entidad;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pais {
     private int id;
     private List<Ciudad> listaCiudades;
-    
     private String nombre;
-
     private String imagen;
 
     public int getId() {
@@ -31,7 +30,7 @@ public class Pais {
     }
 
     public void setNombre(String nombre) {
-        nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getImagen() {
@@ -42,6 +41,15 @@ public class Pais {
         this.imagen = imagen;
     }
 
+    public Pais(String imagen, String nombre) {
+        this.imagen = imagen;
+        this.nombre = nombre;
+        this.listaCiudades = new ArrayList<>();
+    }
+
+    public Pais() {
+
+    }
     @Override
     public String toString() {
         return "Pais{" +

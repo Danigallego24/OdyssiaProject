@@ -1,20 +1,23 @@
 package com.example.odyssiaproject.entidad;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Ciudad {
+
+    @SerializedName("nombre")
+    private String nombre;
+
+    @SerializedName("descripcion")
+    private String descripcion;
+
+    @SerializedName("imagen")
+    private String imagen;
+
     private int id;
     private Pais pais;
     private List<Actividad> listaActividades;
-    private String nombre, descripcion;
-
-    public Pais getPais() {
-        return pais;
-    }
-
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
 
     public String getNombre() {
         return nombre;
@@ -22,22 +25,6 @@ public class Ciudad {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<Actividad> getListaActividades() {
-        return listaActividades;
-    }
-
-    public void setListaActividades(List<Actividad> listaActividades) {
-        this.listaActividades = listaActividades;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescripcion() {
@@ -48,14 +35,47 @@ public class Ciudad {
         this.descripcion = descripcion;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public List<Actividad> getListaActividades() {
+        return listaActividades;
+    }
+
+    public void setListaActividades(List<Actividad> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
+
     @Override
     public String toString() {
         return "Ciudad{" +
-                "id=" + id +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", imagen='" + imagen + '\'' +
+                ", id=" + id +
                 ", pais=" + pais +
                 ", listaActividades=" + listaActividades +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }

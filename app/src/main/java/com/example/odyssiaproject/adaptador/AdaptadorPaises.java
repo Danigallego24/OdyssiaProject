@@ -19,9 +19,7 @@ import java.util.List;
 
 public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHolder> {
 
-    // Lista de países que se mostrará en el RecyclerView
     private List<Pais> listaPais;
-    // GestorPaises para obtener la imagen (o código) de cada país.
     private GestorPaises gestorPaises;
 
     public AdaptadorPaises(List<Pais> listaPaises) {
@@ -44,13 +42,12 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Infla el layout para cada item (item_countries.xml)
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_countries, parent, false);
-
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Obtiene el país correspondiente a la posición
+
         Pais paisActual = listaPais.get(position);
         Log.i("AdaptadorPaises", "Posición: " + position + " - País: " + paisActual.getNombre());
 

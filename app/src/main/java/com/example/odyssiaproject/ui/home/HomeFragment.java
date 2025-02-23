@@ -14,24 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.adaptador.AdaptadorPaises;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
-import com.example.odyssiaproject.entidad.FirestoreDocument;
-import com.example.odyssiaproject.entidad.FirestoreResponse;
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
 import com.example.odyssiaproject.persistencia.api.ApiService;
 import com.example.odyssiaproject.persistencia.api.RetrofitClient;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
-import com.google.gson.JsonObject;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -88,20 +84,12 @@ public class HomeFragment extends Fragment {
 
         // Configurar RecyclerView de Países
         recyclerViewPaises = root.findViewById(R.id.rwCountries);
-        recyclerViewPaises.setHasFixedSize(true);
         recyclerViewPaises.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerViewPaises.setHasFixedSize(true);
 
         // Obtener lista de países desde el Singleton
-        List<Pais> listaPaises = ListaPaisesSingelton.getInstance().getListaPaises();
+        listaPaises = ListaPaisesSingelton.getInstance().getListaPaises();
         Log.d("HomeFragment", "Tamaño de la lista de países: " + listaPaises.size());
-
-        // Comprobar si la lista de países tiene elementos antes de asignar el adaptador
-        if (listaPaises != null && !listaPaises.isEmpty()) {
-            adaptadorPaises = new AdaptadorPaises(listaPaises);
-            recyclerViewPaises.setAdapter(adaptadorPaises);
-        } else {
-            Log.d("HomeFragment", "Lista de países está vacía.");
-        }
 
         apiService = RetrofitClient.getApiService();
         loadCountries();
@@ -111,32 +99,35 @@ public class HomeFragment extends Fragment {
 
     private void loadCountries() {
         // Reemplaza "TU_PROJECT_ID" por el ID de tu proyecto de Firebase
-        Call<JsonObject> call = apiService.getPaises(); // Ahora devuelve JsonObject
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d("MainActivity", "Respuesta Firestore: " + response.body().toString());
-                } else {
-                    Log.e("MainActivity", "Error al obtener países: " + response.message());
-                }
-            }
+        db.collection("paises")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        listaPaises.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String nombre = document.getString("nombre"); // Obtener el nombre
+                            String imagen = document.getString("imagen"); // Obtener la imagen
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e("MainActivity", "Fallo en la petición: " + t.getMessage());
-            }
-        });
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adaptadorPromociones != null) {
-            adaptadorPromociones.notifyDataSetChanged();
-        }
-        if (adaptadorPaises != null) {
-            adaptadorPaises.notifyDataSetChanged();
-        }
+                            // Verificar que el nombre e imagen no sean nulos
+                            if (nombre != null && imagen != null) {
+                                listaPaises.add(new Pais(nombre, imagen));
+                            } else {
+                                Log.w("HomeFragment", "Nombre o imagen nulos en el documento: " + document.getId());
+                            }
+                        }
+
+                        if (adaptadorPaises == null) {
+                            adaptadorPaises = new AdaptadorPaises(listaPaises);
+                            recyclerViewPaises.setAdapter(adaptadorPaises);
+                        } else {
+                            adaptadorPaises.notifyDataSetChanged();
+                        }
+                    }else {
+                        Log.e("HomeFragment", "Error getting documents.", task.getException());
+                        // Aquí podrías manejar el error, por ejemplo, mostrar un mensaje de error.
+                    }
+                });
     }
 }

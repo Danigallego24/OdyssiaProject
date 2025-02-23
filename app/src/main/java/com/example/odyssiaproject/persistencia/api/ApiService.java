@@ -1,14 +1,15 @@
 package com.example.odyssiaproject.persistencia.api;
 
+
 import com.example.odyssiaproject.entidad.Ciudad;
-import com.example.odyssiaproject.entidad.Pais;
-import com.google.gson.JsonObject;
+import com.example.odyssiaproject.entidad.FirestoreResponse;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.Call;
+
 
 public interface ApiService {
 
@@ -18,7 +19,7 @@ public interface ApiService {
      */
 
     @GET("v1/projects/odyssiaproject-ff99f/databases/(default)/documents/paises")
-    Call<JsonObject> getPaises(); // ⬅ Cambia FirestoreResponse por JsonObject
+    Call<FirestoreResponse> getPaises();
     /**
      * 2. Obtiene la lista de ciudades (con su 'imagen' y 'descripcion')
      *    dentro de un país específico, por ejemplo 'belgica'.

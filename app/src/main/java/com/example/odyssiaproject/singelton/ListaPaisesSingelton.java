@@ -18,8 +18,11 @@ public class ListaPaisesSingelton {
         super();
     }
     public static ListaPaisesSingelton getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new ListaPaisesSingelton();
+        }
+        if (instance.listPaises == null) {
+            instance.inicializar();
         }
         return instance;
     }
