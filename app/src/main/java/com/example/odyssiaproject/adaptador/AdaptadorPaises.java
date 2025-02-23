@@ -1,6 +1,8 @@
 package com.example.odyssiaproject.adaptador;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,7 @@ import com.example.odyssiaproject.CityActivity;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.negocio.GestorPaises;
+import com.example.odyssiaproject.ui.city.CityFragment;
 
 import java.util.List;
 
@@ -74,11 +78,25 @@ public class AdaptadorPaises extends RecyclerView.Adapter<AdaptadorPaises.ViewHo
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Pais paisClick = listaPais.get(pos);
-                Log.i("DEBUG", "País enviado a CityActivity: " + paisClick.getNombre());
-                // Inicia la Activity de ciudades y pasa el nombre del país (o también su ID si lo necesitas)
-                Intent intent = new Intent(v.getContext(), CityActivity.class);
-                intent.putExtra("pais", paisClick.getNombre());
-                v.getContext().startActivity(intent);
+                Log.i("DEBUG", "País enviado a CityActivity: " + paisClick.getImagen());
+                // Crear el nuevo fragmento y pasarle el nombre del país como argumento
+                CityFragment cityFragment = new CityFragment();
+                Bundle args = new Bundle();
+                args.putString("pais", paisClick.getImagen());
+                cityFragment.setArguments(args);
+
+                // Obtener el contexto y asegurarse de que es una AppCompatActivity
+                Context context = v.getContext();
+                if (context instanceof AppCompatActivity) {
+                    AppCompatActivity activity = (AppCompatActivity) context;
+                    if (!activity.isFinishing() && !activity.getSupportFragmentManager().isStateSaved()) {
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, cityFragment) // Asegúrate de que el ID es correcto
+                                .addToBackStack(null) // Permite volver atrás
+                                .commit();
+                    }
+                }
             }
         });
     }

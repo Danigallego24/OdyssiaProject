@@ -20,7 +20,6 @@ public class MyApplication extends Application {
         super.onCreate();
         FirebaseApp.initializeApp(this);
         ListaPromocionesSingelton.getInstance().inicializar();
-        ListaCiudadesSingelton.getInstance().inicializar();
         ListaPaisesSingelton.getInstance().inicializar();
     }
 }

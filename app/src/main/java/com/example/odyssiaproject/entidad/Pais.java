@@ -48,7 +48,6 @@ public class Pais {
     }
 
     public Pais() {
-
     }
     @Override
     public String toString() {

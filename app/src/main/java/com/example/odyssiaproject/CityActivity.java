@@ -1,8 +1,6 @@
 package com.example.odyssiaproject;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -17,33 +15,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.odyssiaproject.adaptador.AdaptadorCiudades;
-import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
-import com.example.odyssiaproject.entidad.Ciudad;
-import com.example.odyssiaproject.entidad.Pais;
-import com.example.odyssiaproject.entidad.Promociones;
-import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
-import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import com.example.odyssiaproject.ui.ajustes.ConfigFragment;
 import com.example.odyssiaproject.ui.favs.FavsFragment;
 import com.example.odyssiaproject.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CityActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private RecyclerView recyclerViewCiudades;
-    private AdaptadorCiudades ciudadesAdapter;
-    private AdaptadorPromociones adaptadorPromociones;
-    private RecyclerView recyclerViewPromociones;
-    private Handler handler = new Handler();
-    private int scrollSpeed = 10;
-    private List<Ciudad> ciudadesList;
     private Toolbar toolbar;
     private ImageButton btnMenu;
     DrawerLayout drawerLayout;
@@ -52,12 +32,13 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { 
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
 
         drawerLayout = findViewById(R.id.navBarDrawer);
         navigationView = findViewById(R.id.navBarView);
+        navigationView.setNavigationItemSelectedListener(this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,15 +47,8 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            // Aquí puedes manejar los clics en los elementos del menú lateral
-            drawerLayout.closeDrawer(GravityCompat.START); // Cierra el menú al hacer clic
-            return true;
-        });
-
-        if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.cityPage, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.navInicio);
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
         }
 
         btnMenu = findViewById(R.id.btnMenu);
@@ -93,60 +67,23 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        recyclerViewPromociones = findViewById(R.id.rwPromotions);
-        recyclerViewPromociones.setHasFixedSize(true);
-        recyclerViewPromociones.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        );
-
-        List<Promociones> listaPromociones = ListaPromocionesSingelton.getInstance().getListaPromociones();
-        adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
-        recyclerViewPromociones.setAdapter(adaptadorPromociones);
-        handler.postDelayed(scrollRunnable, 1000);
-
-        String paisSeleccionado = getIntent().getStringExtra("pais");
-        Log.i("CityActivity", "País recibido: " + paisSeleccionado);
-        ciudadesList = new ArrayList<>();
-        Pais pais = ListaPaisesSingelton.getInstance().getPaisByName(paisSeleccionado);
-        ciudadesList = pais.getListaCiudades();
-        recyclerViewCiudades = findViewById(R.id.rwCities);
-        recyclerViewCiudades.setHasFixedSize(true);
-        recyclerViewCiudades.setLayoutManager(
-                new GridLayoutManager(this, 2));
-
-        ciudadesAdapter = new AdaptadorCiudades(ciudadesList);
-        recyclerViewCiudades.setAdapter(ciudadesAdapter);
-        for (Ciudad ciudad : ciudadesList) {
-            Log.i("DEBUG", "Ciudad: " + ciudad.getNombre());
-        }
-        Log.i("DEBUG", "Ciudades encontradas: " + ciudadesList.size());
-
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Fragment fragment = null;
-
         Log.d("NAVIGATION", "Item seleccionado: " + item.getItemId());
 
         if (item.getItemId() == R.id.navInicio) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            return true;
+            Log.d("NAVIGATION", "Cargando HomeFragment...");
+            loadFragment(new HomeFragment());
         } else if (item.getItemId() == R.id.navFavoritos) {
-            Log.d("NAVIGATION", "Cargando FragmentFavs...");
-            fragment = new FavsFragment();
+            Log.d("NAVIGATION", "Cargando FavsFragment...");
+            loadFragment(new FavsFragment());
         } else if (item.getItemId() == R.id.navConfiguracion) {
             Log.d("NAVIGATION", "Cargando ConfigFragment...");
-            fragment = new ConfigFragment();
-        }
-
-        if (fragment != null) {
-            Log.d("NAVIGATION", "Llamando a loadFragment...");
-            loadFragment(fragment);
+            loadFragment(new ConfigFragment());
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -154,11 +91,9 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadFragment(Fragment fragment) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.cityPage);
-        if (currentFragment != null && currentFragment.getClass() == fragment.getClass()) {
-            return;
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.cityPage, fragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);  // Reemplaza el contenedor
+        transaction.commit();
     }
 
     // Para manejar la apertura y cierre del Drawer desde el botón de la barra de acción
@@ -169,24 +104,4 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private Runnable scrollRunnable = new Runnable() {
-        @Override
-        public void run() {
-            recyclerViewPromociones.smoothScrollBy(scrollSpeed, 0);
-
-            if (!recyclerViewPromociones.canScrollHorizontally(1)) {
-                recyclerViewPromociones.scrollToPosition(0);
-            }
-
-            handler.postDelayed(this, 50);
-        }
-    };
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adaptadorPromociones.notifyDataSetChanged();
-        ciudadesAdapter.notifyDataSetChanged();
-    }
-
 }

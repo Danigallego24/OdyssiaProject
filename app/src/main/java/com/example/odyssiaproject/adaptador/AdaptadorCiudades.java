@@ -1,8 +1,8 @@
 package com.example.odyssiaproject.adaptador;
 
-import android.view.GestureDetector;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,18 +13,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.odyssiaproject.ExplorationActivity;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.negocio.GestorCiudades;
-
 import java.util.List;
 /**
  * Adaptador para gestionar la lista de ciudades en un RecyclerView.
  * Muestra cada ciudad con su imagen, nombre, descripción y botón de "Me gusta".
  */
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
-    private Ciudad c;
     private List<Ciudad> listaCiudades;
+    private GestorCiudades gestorCiudades;
+    private TextView tvNameCity, descriptionCity;
 
     /**
      * Constructor del adaptador.
@@ -33,135 +36,80 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
      */
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
-    }
-
-    /**
-     * ViewHolder que representa cada ítem de la lista.
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageCiudad;
-        private TextView nombreCiudad;
-        private ImageButton like;
-        private TextView descripcionCiudad;
-        private Button abrir;
-
-        /**
-         * Constructor del ViewHolder.
-         *
-         * @param v Vista que representa el ítem.
-         */
-        public ViewHolder(View v) {
-            super(v);
-            imageCiudad = v.findViewById(R.id.imageView);
-            nombreCiudad = v.findViewById(R.id.tvNameCity);
-            like = v.findViewById(R.id.buttonLikeCity);
-            descripcionCiudad = v.findViewById(R.id.descriptionCity);
-            abrir = v.findViewById(R.id.buttonOpen);
-        }
+        this.gestorCiudades = new GestorCiudades();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cities, parent, false);
-        AdaptadorCiudades.ViewHolder viewHolder = new AdaptadorCiudades.ViewHolder(v);
-        return viewHolder;
+        return new AdaptadorCiudades.ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-         c = listaCiudades.get(position);
 
-        GestorCiudades gC = new GestorCiudades();
-        String cityCode = gC.imagenCiudad(c);
-
-        if (cityCode.equals("Madrid")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymadrid);
-        } else if (cityCode.equals("Barcelona")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybarcelona);
-        } else if (cityCode.equals("Sevilla")) {
-            holder.imageCiudad.setImageResource(R.drawable.citysevilla);
-        } else if (cityCode.equals("Roma")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityroma);
-        } else if (cityCode.equals("Florencia")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityflorencia);
-        } else if (cityCode.equals("Venecia")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityvenecia);
-        } else if (cityCode.equals("Paris")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityparis);
-        } else if (cityCode.equals("Lyon")) {
-            holder.imageCiudad.setImageResource(R.drawable.citylyon);
-        } else if (cityCode.equals("Marsella")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymarsella);
-        } else if (cityCode.equals("Zurich")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityzurich);
-        } else if (cityCode.equals("Ginebra")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityginebra);
-        } else if (cityCode.equals("Berna")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityberna);
-        } else if (cityCode.equals("Santorini")) {
-            holder.imageCiudad.setImageResource(R.drawable.citysantorini);
-        } else if (cityCode.equals("Atenas")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityatenas);
-        } else if (cityCode.equals("Salonica")) {
-            holder.imageCiudad.setImageResource(R.drawable.citysalonica);
-        } else if (cityCode.equals("Porto")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityporto);
-        } else if (cityCode.equals("Lisboa")) {
-            holder.imageCiudad.setImageResource(R.drawable.citylisboa);
-        } else if (cityCode.equals("Braga")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybraga);
-        } else if (cityCode.equals("Bruselas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybruselas);
-        } else if (cityCode.equals("Brujas")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybrujas);
-        } else if (cityCode.equals("Amberes")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityamberes);
-        } else if (cityCode.equals("Oslo")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityoslo);
-        } else if (cityCode.equals("Bergen")) {
-            holder.imageCiudad.setImageResource(R.drawable.citybergen);
-        } else if (cityCode.equals("Tromso")) {
-            holder.imageCiudad.setImageResource(R.drawable.citytromso);
-        } else if (cityCode.equals("Londres")) {
-            holder.imageCiudad.setImageResource(R.drawable.citylondres);
-        } else if (cityCode.equals("Manchester")) {
-            holder.imageCiudad.setImageResource(R.drawable.citymanchester);
-        } else if (cityCode.equals("Liverpool")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityliverpool);
-        } else if (cityCode.equals("Amsterdam")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityamsterdam);
-        } else if (cityCode.equals("Rotterdam")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityrotterdam);
-        } else if (cityCode.equals("Utrecht")) {
-            holder.imageCiudad.setImageResource(R.drawable.cityutrecht);
+        Ciudad ciudadActual = listaCiudades.get(position);
+        String imagenCiudadesUrl = new GestorCiudades().imagenCiudad(ciudadActual);
+        if (imagenCiudadesUrl == null || imagenCiudadesUrl.isEmpty()) {
+            Log.w("Glide", "URL de la imagen es nula o vacía para el país: " + ciudadActual.getNombre());
+            imagenCiudadesUrl = "url_default_image";  // Asigna una URL predeterminada o usa una imagen local
         }
 
-        holder.nombreCiudad.setText(c.getNombre());
-        holder.descripcionCiudad.setText(c.getDescripcion());
-        holder.like.setImageResource(R.drawable.buttonlike);
-        holder.like.setOnTouchListener(new View.OnTouchListener() {
-            private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
-                    new GestureDetector.SimpleOnGestureListener() {
-                        @Override
-                        public boolean onDoubleTap(MotionEvent e) {
-                            holder.like.setImageResource(R.drawable.buttonlikered);   return true;
-                        }
-                    });
+        Log.d("Glide", "Cargando imagen desde: " + imagenCiudadesUrl);
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+        // Asigna el recurso de imagen según el código obtenido
+        Log.d("MUONES DE MIERDA", "Cargando imagen desde: " + ciudadActual.getNombre());
+        Glide.with(holder.itemView.getContext())
+                .load(imagenCiudadesUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                // Imagen de error
+                .into(holder.imagenCiudad);
+
+        // Asigna los valores a los TextView
+        holder.nombreCiudad.setText(ciudadActual.getNombre());
+        holder.descripcionCiudad.setText(ciudadActual.getDescripcion());
+        
+        // Configura el click sobre el botón de imagen para abrir la CityActivity
+        holder.abrir.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+                Ciudad ciudadClick = listaCiudades.get(pos);
+                Log.i("DEBUG", "Ciudad enviado a ExplorationActivity: " + ciudadClick.getNombre());
+                // Inicia la Activity de ciudades y pasa el nombre del país (o también su ID si lo necesitas)
+                Intent intent = new Intent(v.getContext(), ExplorationActivity.class);
+                intent.putExtra("ciudad", ciudadClick.getNombre());
+                v.getContext().startActivity(intent);
             }
         });
+
     }
-    /**
-     * Devuelve el número total de elementos en la lista.
-     *
-     * @return Tamaño de la lista de ciudades.
-     */
+
     @Override
     public int getItemCount() {
         return listaCiudades.size();
     }
-}
+
+    /**
+     * ViewHolder que representa cada ítem de la lista.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imagenCiudad;
+        private TextView nombreCiudad;
+        private ImageButton like;
+        private TextView descripcionCiudad;
+
+            private Button abrir;
+
+            public ViewHolder(View v) {
+                super(v);
+                imagenCiudad = v.findViewById(R.id.imageView);
+                nombreCiudad = v.findViewById(R.id.tvNameCity);
+                like = v.findViewById(R.id.buttonLikeCity);
+                descripcionCiudad = v.findViewById(R.id.descriptionCity);
+                abrir = v.findViewById(R.id.buttonOpen);
+            }
+        }
+    }
+
