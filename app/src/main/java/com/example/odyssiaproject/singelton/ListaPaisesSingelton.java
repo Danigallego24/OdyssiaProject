@@ -105,93 +105,93 @@ public class ListaPaisesSingelton {
             Log.i("ListaPaises", "País: " + p.getNombre());
         }
     }
-    private List<Ciudad> obtenerCiudadesPorPais(String nombrePais, List<Ciudad> ciudades) {
-        List<Ciudad> resultado = new ArrayList<>();
-        if (nombrePais.equals("España")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Madrid") ||
-                        c.getNombre().equals("Barcelona") ||
-                        c.getNombre().equals("Sevilla")) {
-                    resultado.add(c);
+        private List<Ciudad> obtenerCiudadesPorPais(String nombrePais, List<Ciudad> ciudades) {
+            List<Ciudad> resultado = new ArrayList<>();
+            if (nombrePais.equals("España")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Madrid") ||
+                            c.getNombre().equals("Barcelona") ||
+                            c.getNombre().equals("Sevilla")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Italia")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Roma") ||
-                        c.getNombre().equals("Florencia") ||
-                        c.getNombre().equals("Venecia")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Italia")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Roma") ||
+                            c.getNombre().equals("Florencia") ||
+                            c.getNombre().equals("Venecia")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Francia")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Paris") ||
-                        c.getNombre().equals("Lyon") ||
-                        c.getNombre().equals("Marsella")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Francia")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Paris") ||
+                            c.getNombre().equals("Lyon") ||
+                            c.getNombre().equals("Marsella")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Suiza")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Zurich") ||
-                        c.getNombre().equals("Ginebra") ||
-                        c.getNombre().equals("Berna")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Suiza")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Zurich") ||
+                            c.getNombre().equals("Ginebra") ||
+                            c.getNombre().equals("Berna")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Grecia")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Santorini") ||
-                        c.getNombre().equals("Atenas") ||
-                        c.getNombre().equals("Salonica")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Grecia")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Santorini") ||
+                            c.getNombre().equals("Atenas") ||
+                            c.getNombre().equals("Salonica")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Portugal")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Porto") ||
-                        c.getNombre().equals("Lisboa") ||
-                        c.getNombre().equals("Braga")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Portugal")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Porto") ||
+                            c.getNombre().equals("Lisboa") ||
+                            c.getNombre().equals("Braga")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Belgica")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Bruselas") ||
-                        c.getNombre().equals("Brujas") ||
-                        c.getNombre().equals("Amberes")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Belgica")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Bruselas") ||
+                            c.getNombre().equals("Brujas") ||
+                            c.getNombre().equals("Amberes")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Noruega")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Oslo") ||
-                        c.getNombre().equals("Bergen") ||
-                        c.getNombre().equals("Tromso")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Noruega")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Oslo") ||
+                            c.getNombre().equals("Bergen") ||
+                            c.getNombre().equals("Tromso")) {
+                        resultado.add(c);
+                    }
                 }
-            }
-        } else if (nombrePais.equals("Inglaterra")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Londres") ||
-                        c.getNombre().equals("Manchester") ||
-                        c.getNombre().equals("Liverpool")) {
-                    resultado.add(c);
+            } else if (nombrePais.equals("Inglaterra")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Londres") ||
+                            c.getNombre().equals("Manchester") ||
+                            c.getNombre().equals("Liverpool")) {
+                        resultado.add(c);
+                    }
+                }
+
+        } else if (nombrePais.equals("Holanda")) {
+                for (Ciudad c : ciudades) {
+                    if (c.getNombre().equals("Amsterdam") ||
+                            c.getNombre().equals("Rotterdam") ||
+                            c.getNombre().equals("Utrecht")) {
+                        resultado.add(c);
+                    }
                 }
             }
 
-    } else if (nombrePais.equals("Holanda")) {
-            for (Ciudad c : ciudades) {
-                if (c.getNombre().equals("Amsterdam") ||
-                        c.getNombre().equals("Rotterdam") ||
-                        c.getNombre().equals("Utrecht")) {
-                    resultado.add(c);
-                }
-            }
+            return resultado;
         }
-
-        return resultado;
-    }
 
     public List<Pais> getListaPaises() {
         return listPaises;
