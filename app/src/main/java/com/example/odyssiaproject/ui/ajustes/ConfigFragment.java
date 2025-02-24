@@ -19,11 +19,14 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.odyssiaproject.LogIn;
 import com.example.odyssiaproject.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class ConfigFragment extends Fragment {
 
     private ConfigViewModel configViewModel;
+    private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -31,6 +34,7 @@ public class ConfigFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_config, container, false);
 
         configViewModel = new ViewModelProvider(this).get(ConfigViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
 
         ImageButton btnPerfil = root.findViewById(R.id.btnPefil);
         ImageButton btnCambioPass = root.findViewById(R.id.btnCambioPass);
@@ -82,6 +86,7 @@ public class ConfigFragment extends Fragment {
                     .setTitle("Cerrar sesión")
                     .setMessage("¿Estás seguro de que deseas cerrar sesión?")
                     .setPositiveButton("Sí", (dialog, which) -> {
+                        mAuth.signOut();
                         // Redirigir al Login
                         Intent intent = new Intent(getActivity(), LogIn.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -98,12 +103,24 @@ public class ConfigFragment extends Fragment {
                     .setTitle("Eliminar cuenta")
                     .setMessage("Esta acción es irreversible. ¿Seguro que deseas eliminar tu cuenta?")
                     .setPositiveButton("Eliminar", (dialog, which) -> {
-                        Toast.makeText(getActivity(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-                        // Lógica para eliminar la cuenta (API o base de datos)
-                        Intent intent = new Intent(getActivity(), LogIn.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        getActivity().finish();
+
+                        FirebaseUser user = mAuth.getCurrentUser();
+
+                        if (user != null) {
+                            user.delete()
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getActivity(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                                            // Redirigir al login
+                                            Intent intent = new Intent(getActivity(), LogIn.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        } else {
+                                            Toast.makeText(getActivity(), "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();

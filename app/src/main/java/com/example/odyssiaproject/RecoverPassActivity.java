@@ -32,9 +32,7 @@ public class RecoverPassActivity extends AppCompatActivity {
             gestorUsuario.recuperarContrasenia(email, new GestorUsuario.OnRecuperacionListener() {
                 @Override
                 public void onSuccess() {
-                    Toast.makeText(RecoverPassActivity.this,
-                            "Se ha enviado un correo para restablecer la contraseña", Toast.LENGTH_LONG).show();
-
+                    Dialogos.showRegoverPass(RecoverPassActivity.this);
                     Intent intent = new Intent(RecoverPassActivity.this, LogIn.class);
                     startActivity(intent);
                     finish();
@@ -42,8 +40,7 @@ public class RecoverPassActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception exception) {
-                    Toast.makeText(RecoverPassActivity.this,
-                            "Error: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+                    Dialogos.showErrorRegoverPass(RecoverPassActivity.this, exception.getMessage());
                 }
             });
         });

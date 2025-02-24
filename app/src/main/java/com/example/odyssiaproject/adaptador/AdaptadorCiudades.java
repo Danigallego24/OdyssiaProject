@@ -2,7 +2,9 @@ package com.example.odyssiaproject.adaptador;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -84,6 +86,22 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
             }
         });
 
+        holder.like.setOnTouchListener(new View.OnTouchListener() {
+
+            private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
+                    new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onDoubleTap(MotionEvent e) {
+                            holder.like.setImageResource(R.drawable.buttonlikered);
+                            return true;
+                        }
+                    });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
     }
 
     @Override

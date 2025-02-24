@@ -3,6 +3,7 @@ package com.example.odyssiaproject.negocio;
 import com.example.odyssiaproject.entidad.Usuario;
 import com.example.odyssiaproject.persistencia.DaoUsuario;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GestorUsuario {
 
@@ -46,6 +47,12 @@ public class GestorUsuario {
             listener.onFailure(new Exception("Campos obligatorios vacíos"));
             return;
         }
+
+        if (!usuario.getFechaNacimiento().matches("\\d{2}/\\d{2}/\\d{4}")) {
+            listener.onFailure(new Exception("Formato de fecha inválido. Debe ser dd/MM/yyyy"));
+            return;
+        }
+
         // Delegamos en el DAO para registrar el usuario
         usuarioDao.registrarUsuario(usuario, new DaoUsuario.OnRegistroListener() {
             @Override
@@ -88,4 +95,18 @@ public class GestorUsuario {
         void onSuccess();
         void onFailure(Exception exception);
     }
+
+    public void actualizarPassword(String uid, String nuevaPassword, OnUpdatePasswordListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usuarios").document(uid)
+                .update("contrasenia", nuevaPassword) // Cambia "contrasenia" por el nombre del campo correspondiente
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(e -> listener.onFailure(e));
+    }
+
+    public interface OnUpdatePasswordListener {
+        void onSuccess();
+        void onFailure(Exception e);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.odyssiaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -64,8 +65,11 @@ public class Registro3Activity extends AppCompatActivity {
             gestor.registrar(usuario, new GestorUsuario.OnRegistroListener() {
                 @Override
                 public void onSuccess(FirebaseUser user) {
-                    Toast.makeText(Registro3Activity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                    // Inicia la siguiente actividad y cierra esta
+                    SharedPreferences preferences = getSharedPreferences("usuario", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("correo", correo);
+                    editor.apply();
+                    Dialogos.showLoading(Registro3Activity.this, "Registrando Usuario...");
                     Intent intentFinal = new Intent(Registro3Activity.this, Registro4Activity.class);
                     startActivity(intentFinal);
                     finish();
@@ -73,8 +77,20 @@ public class Registro3Activity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception exception) {
-                    Toast.makeText(Registro3Activity.this, "Error: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+                    Dialogos.showErrorRegister( Registro3Activity.this, obtenerMensajeErrorFirebase(exception));
                 }
+
+                private String obtenerMensajeErrorFirebase(Exception exception) {
+                    String mensaje = exception.getMessage();
+
+                    if (mensaje.contains("The given password is invalid. [ Password should be at least 6 characters ]")) {
+                        return "Contraseña invalida. Tiene que contener minimo 6 caracteres";
+                    } else if (mensaje.contains("The email address is already in use by another account.")) {
+                        return "El correo electrónico introduzido ya esta en uso";
+                    }
+                    return mensaje;
+                }
+
             });
         });
     }

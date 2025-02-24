@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,9 @@ import com.example.odyssiaproject.persistencia.api.ApiService;
 import com.example.odyssiaproject.persistencia.api.RetrofitClient;
 import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -33,7 +38,6 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerViewPromociones;
     private RecyclerView recyclerViewPaises;
-
     private List<Pais> listaPaises = new ArrayList<>();
     private AdaptadorPromociones adaptadorPromociones;
     private AdaptadorPaises adaptadorPaises;
@@ -62,6 +66,26 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        DrawerLayout drawerLayout = getActivity().findViewById(R.id.navBarDrawer);
+        NavigationView navigationView = drawerLayout.findViewById(R.id.navBarView);
+        if (navigationView != null) {
+            // Acceder a la vista del encabezado dentro del NavigationView
+            View headerView = navigationView.getHeaderView(0);
+            TextView userEmailTextView = headerView.findViewById(R.id.twUsuario);
+
+            // Obtener el correo del usuario desde Firebase
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
+            if (currentUser != null) {
+                String userEmail = currentUser.getEmail();
+                userEmailTextView.setText(userEmail);  // Establecer el correo en el TextView
+            } else {
+                // Si no hay usuario autenticado, manejar la situación
+                userEmailTextView.setText("Usuario no autenticado");
+            }
+        }
+
         // Configurar RecyclerView de Promociones
         recyclerViewPromociones = root.findViewById(R.id.rwPromotions);
         recyclerViewPromociones.setHasFixedSize(true);
@@ -77,7 +101,7 @@ public class HomeFragment extends Fragment {
         recyclerViewPromociones.setAdapter(adaptadorPromociones);
 
         // Comprobar si la lista de promociones tiene elementos antes de asignar el adaptador
-        if (listaPromociones.isEmpty()) {
+        if (listaPromociones != null && !listaPromociones.isEmpty()) {
             adaptadorPromociones = new AdaptadorPromociones(listaPromociones);
             recyclerViewPromociones.setAdapter(adaptadorPromociones);
         } else {
