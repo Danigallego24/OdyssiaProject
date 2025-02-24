@@ -1,6 +1,5 @@
 package com.example.odyssiaproject.singelton;
 
-import android.util.Log;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Pais;
 import java.util.ArrayList;
