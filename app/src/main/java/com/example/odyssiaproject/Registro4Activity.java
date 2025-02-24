@@ -7,10 +7,10 @@ import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-
 public class Registro4Activity extends AppCompatActivity {
 
-    private ImageButton btnLogin;  // Botón para ir al inicio de sesión
+    private ImageButton btnLogin; // Botón para ir al inicio de sesión
+    private FirebaseAuth auth; // Instancia de FirebaseAuth
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +18,17 @@ public class Registro4Activity extends AppCompatActivity {
         setContentView(R.layout.activity_register4);
 
         btnLogin = findViewById(R.id.btnContinuar);
+        auth = FirebaseAuth.getInstance(); // Inicializar FirebaseAuth
 
+        // Configuramos el botón para cerrar sesión y redirigir a LogIn
+        btnLogin.setOnClickListener(view -> cerrarSesionYRedirigir());
+    }
+    private void cerrarSesionYRedirigir() {
+        auth.signOut(); // Cierra sesión en Firebase
+        Intent intent = new Intent(Registro4Activity.this, LogIn.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Evita volver atrás
+        startActivity(intent);
+        finish();
 
-        // Configuramos el botón para que, al pulsarlo, abra la pantalla de inicio de sesión
-        btnLogin.setOnClickListener(view -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(Registro4Activity.this, LogIn.class);
-            startActivity(intent);
-            finish();
-        });
     }
 }

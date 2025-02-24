@@ -17,15 +17,21 @@ import java.util.Map;
 
 public class DaoUsuario {
     private static final String TAG = "DaoUsuario";
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
+    private final FirebaseAuth mAuth;
+    private final FirebaseFirestore db;
 
+    // Constructor que inicializa Firebase Authentication y Firestore
     public DaoUsuario() {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
     }
 
-    // Iniciar sesión
+    /**
+     * Inicia sesión con correo y contraseña.
+     * @param correo Correo electrónico del usuario.
+     * @param contrasenia Contraseña del usuario.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void iniciarSesion(String correo, String contrasenia, final OnLoginListener listener) {
         mAuth.signInWithEmailAndPassword(correo, contrasenia)
                 .addOnCompleteListener(task -> {
@@ -43,7 +49,11 @@ public class DaoUsuario {
         void onFailure(Exception exception);
     }
 
-    // Registrar usuario con verificación de duplicados en Firestore
+    /**
+     * Registra un usuario verificando que el correo no esté en uso.
+     * @param usuario Objeto Usuario con la información de registro.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void registrarUsuario(final Usuario usuario, final OnRegistroListener listener) {
         db.collection("usuario").whereEqualTo("correo", usuario.getCorreo()).get()
                 .addOnCompleteListener(task -> {
@@ -56,6 +66,11 @@ public class DaoUsuario {
                 .addOnFailureListener(listener::onFailure);
     }
 
+    /**
+     * Crea un usuario en Firebase Authentication.
+     * @param usuario Objeto Usuario con la información de registro.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     private void crearUsuarioEnAuth(final Usuario usuario, final OnRegistroListener listener) {
         mAuth.createUserWithEmailAndPassword(usuario.getCorreo(), usuario.getContrasenia())
                 .addOnCompleteListener(task -> {
@@ -72,6 +87,12 @@ public class DaoUsuario {
                 });
     }
 
+    /**
+     * Guarda los datos del usuario en Firestore.
+     * @param firebaseUser Usuario autenticado en Firebase.
+     * @param usuario Objeto Usuario con la información de registro.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     private void guardarUsuarioEnFirestore(FirebaseUser firebaseUser, Usuario usuario, OnRegistroListener listener) {
         String uid = firebaseUser.getUid();
         Map<String, Object> userData = new HashMap<>();
@@ -97,7 +118,11 @@ public class DaoUsuario {
         void onFailure(Exception exception);
     }
 
-    // Recuperar contraseña
+    /**
+     * Envía un correo de recuperación de contraseña.
+     * @param email Correo electrónico del usuario.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void recuperarContrasenia(String email, final OnRecuperacionListener listener) {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
@@ -108,6 +133,7 @@ public class DaoUsuario {
                     }
                 });
     }
+
     public interface OnRecuperacionListener {
         void onSuccess();
         void onFailure(Exception exception);

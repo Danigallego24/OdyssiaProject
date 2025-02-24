@@ -21,7 +21,6 @@ import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
 import com.example.odyssiaproject.persistencia.api.ApiService;
 import com.example.odyssiaproject.persistencia.api.RetrofitClient;
-import com.example.odyssiaproject.singelton.ListaCiudadesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -92,8 +91,7 @@ public class CityFragment extends Fragment {
         recyclerViewCiudades.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewCiudades.setHasFixedSize(true);
 
-        // Obtener lista de países desde el Singleton
-        listaCiudades = ListaCiudadesSingelton.getInstance().getListaCiudades();
+
         Log.d("CityFragment", "Tamaño de la lista de ciudades: " + listaCiudades.size());
 
         if (getArguments() != null) {

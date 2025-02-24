@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pais {
-    private int id;
+    private String id;
     private List<Ciudad> listaCiudades;
     private String nombre;
     private String imagen;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
