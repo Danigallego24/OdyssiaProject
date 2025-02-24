@@ -20,7 +20,6 @@ import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
 import com.example.odyssiaproject.persistencia.api.ApiService;
 import com.example.odyssiaproject.persistencia.api.RetrofitClient;
-import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

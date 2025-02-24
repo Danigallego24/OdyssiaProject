@@ -1,34 +1,39 @@
 package com.example.odyssiaproject.negocio;
 
 import com.example.odyssiaproject.entidad.Ciudad;
-import com.example.odyssiaproject.entidad.Pais;
-import com.example.odyssiaproject.singelton.ListaCiudadesSingelton;
-import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * Clase para gestionar la lógica relacionada con ciudades (obtención de imágenes, validaciones, etc.).
+ */
 public class GestorCiudades {
 
-    private final ListaCiudadesSingelton listaCiudades;
+    // Mapa estático para asociar ciudades con sus URLs de imagen (puede reemplazarse con Firestore)
+    private static final Map<String, String> ciudadImagenMap = new HashMap<>();
 
-    public GestorCiudades() {
-        // Inicializamos una sola vez el singleton
-        this.listaCiudades = ListaCiudadesSingelton.getInstance();
+    static {
+        // Ejemplo de URLs hardcodeadas (usar solo para pruebas)
+        ciudadImagenMap.put("Madrid", "https://ejemplo.com/madrid.jpg");
+        ciudadImagenMap.put("Barcelona", "https://ejemplo.com/barcelona.jpg");
+        ciudadImagenMap.put("Roma", "https://ejemplo.com/roma.jpg");
+        // Añadir más ciudades según sea necesario
     }
 
-    public String imagenCiudad(Ciudad c) {
-
-        if (c == null || c.getNombre() == null) {
-            return "0";
+    /**
+     * Obtiene la URL de la imagen de una ciudad desde Firestore o un mapa estático.
+     *
+     * @param ciudad Objeto Ciudad del cual se requiere la imagen.
+     * @return URL de la imagen o valor por defecto si no se encuentra.
+     */
+    public String imagenCiudad(Ciudad ciudad) {
+        // Opción 1: Obtener URL desde Firestore (recomendado)
+        if (ciudad.getImagen() != null && !ciudad.getImagen().isEmpty()) {
+            return ciudad.getImagen();
         }
-        // Se busca el país en el singleton (podría hacerse para validar que exista)
-        Ciudad ciudad = listaCiudades.getCiudadByName(c.getNombre());
-        if (ciudad == null) {
-            return "0";
-        }
-        String nombreCiudad = ciudad.getNombre().toLowerCase();
 
-        // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
-        // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.
-        return ciudad.getImagen();
-
+        // Opción 2: Usar mapa estático (solo para pruebas)
+        String url = ciudadImagenMap.get(ciudad.getImagen());
+        return url != null ? url : "https://ejemplo.com/default.jpg";
     }
 }

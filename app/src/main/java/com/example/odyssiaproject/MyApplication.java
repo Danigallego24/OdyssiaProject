@@ -3,8 +3,6 @@ package com.example.odyssiaproject;
 import android.app.Application;
 import com.google.firebase.FirebaseApp;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
-import com.example.odyssiaproject.singelton.ListaCiudadesSingelton;
-import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
 
 /**
  * Clase MyApplication que extiende de Application.
@@ -20,6 +18,5 @@ public class MyApplication extends Application {
         super.onCreate();
         FirebaseApp.initializeApp(this);
         ListaPromocionesSingelton.getInstance().inicializar();
-        ListaPaisesSingelton.getInstance().inicializar();
     }
 }
