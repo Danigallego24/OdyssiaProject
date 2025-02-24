@@ -115,9 +115,6 @@ public class HomeFragment extends Fragment {
         recyclerViewPaises.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewPaises.setHasFixedSize(true);
 
-        // Obtener lista de países desde el Singleton
-        listaPaises = ListaPaisesSingelton.getInstance().getListaPaises();
-        Log.d("HomeFragment", "Tamaño de la lista de países: " + listaPaises.size());
 
         apiService = RetrofitClient.getApiService();
         loadCountries();

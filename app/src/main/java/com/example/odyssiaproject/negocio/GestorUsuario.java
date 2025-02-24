@@ -7,13 +7,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GestorUsuario {
 
-    private DaoUsuario usuarioDao;
+    private final DaoUsuario usuarioDao;
 
     public GestorUsuario() {
         usuarioDao = new DaoUsuario();
     }
 
-    // Método para iniciar sesión: valida que correo y contraseña no estén vacíos
+    /**
+     * Inicia sesión validando que el correo y la contraseña no estén vacíos.
+     * @param usuario Objeto Usuario con correo y contraseña.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void iniciarSesion(Usuario usuario, final OnLoginListener listener) {
         if (usuario.getCorreo().isEmpty() || usuario.getContrasenia().isEmpty()) {
             listener.onFailure(new Exception("Correo y contraseña son obligatorios"));
@@ -31,15 +35,17 @@ public class GestorUsuario {
         });
     }
 
-    // Interfaz para el callback del inicio de sesión
     public interface OnLoginListener {
         void onSuccess(FirebaseUser user);
         void onFailure(Exception exception);
     }
 
-    // Método para registrar un usuario
+    /**
+     * Registra un usuario validando los campos obligatorios.
+     * @param usuario Objeto Usuario con la información de registro.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void registrar(Usuario usuario, final OnRegistroListener listener) {
-        // Validaciones básicas de campos obligatorios
         if (usuario.getNombre().isEmpty() ||
                 usuario.getApellido().isEmpty() ||
                 usuario.getCorreo().isEmpty() ||
@@ -53,7 +59,6 @@ public class GestorUsuario {
             return;
         }
 
-        // Delegamos en el DAO para registrar el usuario
         usuarioDao.registrarUsuario(usuario, new DaoUsuario.OnRegistroListener() {
             @Override
             public void onSuccess(FirebaseUser user) {
@@ -66,13 +71,16 @@ public class GestorUsuario {
         });
     }
 
-    // Interfaz para el callback del registro
     public interface OnRegistroListener {
         void onSuccess(FirebaseUser user);
         void onFailure(Exception exception);
     }
 
-    // Método para recuperar contraseña, con validación previa del correo
+    /**
+     * Envía un correo para recuperación de contraseña validando previamente el email.
+     * @param email Correo electrónico del usuario.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void recuperarContrasenia(String email, final OnRecuperacionListener listener) {
         if (email == null || email.trim().isEmpty()){
             listener.onFailure(new Exception("Debes ingresar un correo electrónico."));
@@ -90,23 +98,27 @@ public class GestorUsuario {
         });
     }
 
-    // Interfaz para el callback de recuperación de contraseña
     public interface OnRecuperacionListener {
         void onSuccess();
         void onFailure(Exception exception);
     }
 
+    /**
+     * Actualiza la contraseña de un usuario en Firestore.
+     * @param uid Identificador único del usuario en Firebase.
+     * @param nuevaPassword Nueva contraseña del usuario.
+     * @param listener Callback para manejar éxito o fracaso.
+     */
     public void actualizarPassword(String uid, String nuevaPassword, OnUpdatePasswordListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("usuarios").document(uid)
-                .update("contrasenia", nuevaPassword) // Cambia "contrasenia" por el nombre del campo correspondiente
+                .update("contrasenia", nuevaPassword)
                 .addOnSuccessListener(aVoid -> listener.onSuccess())
-                .addOnFailureListener(e -> listener.onFailure(e));
+                .addOnFailureListener(listener::onFailure);
     }
 
     public interface OnUpdatePasswordListener {
         void onSuccess();
         void onFailure(Exception e);
     }
-
 }
