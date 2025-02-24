@@ -21,6 +21,7 @@ import com.example.odyssiaproject.ExplorationActivity;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.negocio.GestorCiudades;
+
 import java.util.List;
 /**
  * Adaptador para gestionar la lista de ciudades en un RecyclerView.
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
     private List<Ciudad> listaCiudades;
-    private GestorCiudades gestorCiudades;
+
     private TextView tvNameCity, descriptionCity;
 
     /**
@@ -38,7 +39,6 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
      */
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
-        this.gestorCiudades = new GestorCiudades();
     }
 
     @NonNull

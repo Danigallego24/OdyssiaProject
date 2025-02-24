@@ -1,37 +1,59 @@
 package com.example.odyssiaproject.negocio;
 
 import com.example.odyssiaproject.entidad.Pais;
-import com.example.odyssiaproject.singelton.ListaPaisesSingelton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorPaises {
 
-    private final ListaPaisesSingelton listaPaises;
+    private final FirebaseFirestore db;
 
     public GestorPaises() {
-        // Inicializamos una sola vez el singleton
-        this.listaPaises = ListaPaisesSingelton.getInstance();
+        db = FirebaseFirestore.getInstance();
     }
 
     /**
-     * Retorna un código o nombre de país que se utilizará para seleccionar la imagen.
-     * Si el país no se encuentra o no coincide, se retorna "0" (o podrías retornar un valor por defecto).
+     * Obtiene la URL de la imagen de un país desde Firestore.
      *
-     * @param p Objeto Pais con el nombre a buscar.
-     * @return El nombre del país si coincide o "0" si no se encuentra.
+     * @param pais Objeto Pais con al menos el nombre.
+     * @return URL de la imagen o valor por defecto si no se encuentra.
      */
-    public String imagenPaises(Pais p) {
-        if (p == null || p.getNombre() == null) {
-            return "0";
+    public String imagenPaises(Pais pais) {
+        if (pais == null || pais.getImagen() == null || pais.getImagen().isEmpty()) {
+            return "https://ejemplo.com/default.jpg"; // URL por defecto
         }
-        // Se busca el país en el singleton (podría hacerse para validar que exista)
-        Pais pais = listaPaises.getPaisByName(p.getNombre());
-        if (pais == null) {
-            return "0";
-        }
-        String nombrePais = pais.getNombre().toLowerCase();
+        return pais.getImagen();
+    }
 
-        // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
-        // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.
-       return pais.getImagen();
+    /**
+     * Carga la lista de países desde Firestore.
+     *
+     * @param listener Callback para manejar el resultado.
+     */
+    public void cargarPaises(OnPaisesCargadosListener listener) {
+        db.collection("paises")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<Pais> paises = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Pais pais = doc.toObject(Pais.class);
+                            pais.setId(doc.getId()); // Guardar ID de Firestore
+                            paises.add(pais);
+                        }
+                        listener.onExito(paises);
+                    } else {
+                        listener.onError(task.getException());
+                    }
+                });
+    }
+
+    // Interfaz para manejar la respuesta asíncrona
+    public interface OnPaisesCargadosListener {
+        void onExito(List<Pais> paises);
+        void onError(Exception e);
     }
 }
