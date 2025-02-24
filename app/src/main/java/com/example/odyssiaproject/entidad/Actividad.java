@@ -2,8 +2,9 @@ package com.example.odyssiaproject.entidad;
 
 public class Actividad {
     private String nombre, horario;
-    private double precio;
+    private String precio;
     private Direccion direccion;
+    private Ciudad ciudad;
 
     public String getNombre() {
         return nombre;
@@ -21,11 +22,12 @@ public class Actividad {
         this.horario = horario;
     }
 
-    public double getPrecio() {
+
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
@@ -37,6 +39,14 @@ public class Actividad {
         this.direccion = direccion;
     }
 
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
     @Override
     public String toString() {
         return "Actividad{" +
@@ -44,6 +54,7 @@ public class Actividad {
                 ", horario='" + horario + '\'' +
                 ", precio=" + precio +
                 ", direccion=" + direccion +
+                ", ciudad=" + ciudad +
                 '}';
     }
 }
