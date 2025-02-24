@@ -39,7 +39,8 @@ public class CityFragment extends Fragment {
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
     private Pais pais;
-
+    private static final String ARG_NOMBRE_CIUDAD = "nombre_ciudad";
+    private String nombreCiudad;
     // Retrofit API para Firestore
     private ApiService apiService;
 
@@ -56,13 +57,31 @@ public class CityFragment extends Fragment {
             handler.postDelayed(this, 50);
         }
     };
+    public CityFragment() {
+        
+    }
+    public static CityFragment newInstance(String nombreCiudad) {
+        CityFragment fragment = new CityFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_NOMBRE_CIUDAD, nombreCiudad);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            nombreCiudad = getArguments().getString(ARG_NOMBRE_CIUDAD);
+        }
+        // Aquí podrías utilizar 'nombreCiudad' para cargar datos específicos, por ejemplo.
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_city, container, false);
 
-    
+
 
         // Configurar RecyclerView de Promociones
         recyclerViewPromociones = root.findViewById(R.id.rwPromotions);

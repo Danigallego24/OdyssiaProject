@@ -1,6 +1,7 @@
 package com.example.odyssiaproject.adaptador;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -18,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.odyssiaproject.OnCiudadClickListener;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.negocio.GestorCiudades;
+import com.example.odyssiaproject.ui.city.CityFragment;
 import com.example.odyssiaproject.ui.option.OptionFragment;
 
 import java.util.List;
@@ -29,8 +30,6 @@ import java.util.List;
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder> {
     private List<Ciudad> listaCiudades;
     private GestorCiudades gestorCiudades;
-
-    private OnCiudadClickListener listener;
 
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
@@ -62,12 +61,26 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         holder.nombreCiudad.setText(ciudadActual.getNombre());
         holder.descripcionCiudad.setText(ciudadActual.getDescripcion());
 
-        // Al pulsar el botón "abrir" se crea el fragmento de monumentos filtrados por la ciudad
+        // Al pulsar el botón "abrir" se crea el fragmento CityFragment con el nombre de la ciudad
         holder.abrir.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Ciudad ciudadClick = listaCiudades.get(pos);
-                listener.onCiudadClick(ciudadClick.getNombre());
+                // Crear el CityFragment con el nombre de la ciudad
+                CityFragment cityFragment = CityFragment.newInstance(ciudadClick.getNombre());
+
+                // Obtener el Activity desde el contexto de forma segura
+                Context context = v.getContext();
+                while (!(context instanceof AppCompatActivity) && context instanceof ContextWrapper) {
+                    context = ((ContextWrapper) context).getBaseContext();
+                }
+                AppCompatActivity activity = (AppCompatActivity) context;
+
+                // Realizar la transacción de fragmentos
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new OptionFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
