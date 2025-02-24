@@ -1,8 +1,6 @@
 package com.example.odyssiaproject.adaptador;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -20,28 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.odyssiaproject.ExplorationActivity;
+import com.example.odyssiaproject.OnCiudadClickListener;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Ciudad;
-import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.negocio.GestorCiudades;
-import com.example.odyssiaproject.ui.city.CityFragment;
 import com.example.odyssiaproject.ui.option.OptionFragment;
 
 import java.util.List;
-/**
- * Adaptador para gestionar la lista de ciudades en un RecyclerView.
- * Muestra cada ciudad con su imagen, nombre, descripción y botón de "Me gusta".
- */
-public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
+
+public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder> {
     private List<Ciudad> listaCiudades;
     private GestorCiudades gestorCiudades;
 
-    /**
-     * Constructor del adaptador.
-     *
-     * @param listaCiudades Lista de ciudades a mostrar.
-     */
+    private OnCiudadClickListener listener;
+
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
         this.gestorCiudades = new GestorCiudades();
@@ -51,72 +41,37 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cities, parent, false);
-        return new AdaptadorCiudades.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Ciudad ciudadActual = listaCiudades.get(position);
-        String imagenCiudadesUrl = new GestorCiudades().imagenCiudad(ciudadActual);
+        String imagenCiudadesUrl = gestorCiudades.imagenCiudad(ciudadActual);
         if (imagenCiudadesUrl == null || imagenCiudadesUrl.isEmpty()) {
-            Log.w("Glide", "URL de la imagen es nula o vacía para el país: " + ciudadActual.getNombre());
-            imagenCiudadesUrl = "url_default_image";  // Asigna una URL predeterminada o usa una imagen local
+            Log.w("Glide", "URL de la imagen es nula o vacía para: " + ciudadActual.getNombre());
+            imagenCiudadesUrl = "url_default_image";
         }
 
-        Log.d("Glide", "Cargando imagen desde: " + imagenCiudadesUrl);
-
-        // Asigna el recurso de imagen según el código obtenido
-        Log.d("MUONES DE MIERDA", "Cargando imagen desde: " + ciudadActual.getNombre());
         Glide.with(holder.itemView.getContext())
                 .load(imagenCiudadesUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
-                // Imagen de error
                 .into(holder.imagenCiudad);
 
-        // Asigna los valores a los TextView
         holder.nombreCiudad.setText(ciudadActual.getNombre());
         holder.descripcionCiudad.setText(ciudadActual.getDescripcion());
-        
-        // Configura el click sobre el botón de imagen para abrir la OptionActivity
+
+        // Al pulsar el botón "abrir" se crea el fragmento de monumentos filtrados por la ciudad
         holder.abrir.setOnClickListener(v -> {
-            Log.d("PULSAR","PULSADO");
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Ciudad ciudadClick = listaCiudades.get(pos);
-
-                // 1. Crear fragmento de detalle
-                OptionFragment optionFragment = new OptionFragment();
-
-                // 2. Preparar argumentos (envía nombre de la ciudad)
-                Bundle args = new Bundle();
-                // Convertir explícitamente a String para evitar el error de casteo
-                String nombreCiudad = (ciudadClick.getNombre() != null)
-                        ? ciudadClick.getNombre().toString() : "";
-                args.putString("ciudad", nombreCiudad);
-                optionFragment.setArguments(args);
-
-                // 3. Obtener contexto y navegar
-                Context context = v.getContext();
-                if (context instanceof AppCompatActivity) {
-                    AppCompatActivity activity = (AppCompatActivity) context;
-
-                    // Validación para evitar crashes en estados inválidos
-                    if (!activity.isFinishing() && !activity.getSupportFragmentManager().isStateSaved()) {
-                        activity.getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_container, optionFragment)  // Reemplaza el fragmento actual
-                                .addToBackStack(null)  // Permite retroceder con botón Back
-                                .commit();
-                    }
-                }
+                listener.onCiudadClick(ciudadClick.getNombre());
             }
         });
 
-
         holder.like.setOnTouchListener(new View.OnTouchListener() {
-
             private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
                     new GestureDetector.SimpleOnGestureListener() {
                         @Override
@@ -138,25 +93,20 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         return listaCiudades.size();
     }
 
-    /**
-     * ViewHolder que representa cada ítem de la lista.
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imagenCiudad;
         private TextView nombreCiudad;
         private ImageButton like;
         private TextView descripcionCiudad;
+        private Button abrir;
 
-            private Button abrir;
-
-            public ViewHolder(View v) {
-                super(v);
-                imagenCiudad = v.findViewById(R.id.imageView);
-                nombreCiudad = v.findViewById(R.id.tvNameCity);
-                like = v.findViewById(R.id.buttonLikeCity);
-                descripcionCiudad = v.findViewById(R.id.descriptionCity);
-                abrir = v.findViewById(R.id.buttonOpen);
-            }
+        public ViewHolder(View v) {
+            super(v);
+            imagenCiudad = v.findViewById(R.id.imageView);
+            nombreCiudad = v.findViewById(R.id.tvNameCity);
+            like = v.findViewById(R.id.buttonLikeCity);
+            descripcionCiudad = v.findViewById(R.id.descriptionCity);
+            abrir = v.findViewById(R.id.buttonOpen);
         }
     }
-
+}

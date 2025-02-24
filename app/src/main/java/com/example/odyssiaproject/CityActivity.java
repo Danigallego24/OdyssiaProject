@@ -17,9 +17,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.odyssiaproject.adaptador.AdaptadorCiudades;
 import com.example.odyssiaproject.ui.ajustes.ConfigFragment;
 import com.example.odyssiaproject.ui.favs.FavsFragment;
 import com.example.odyssiaproject.ui.home.HomeFragment;
+import com.example.odyssiaproject.ui.option.OptionFragment;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -31,10 +33,12 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
+
 
         drawerLayout = findViewById(R.id.navBarDrawer);
         navigationView = findViewById(R.id.navBarView);
@@ -104,4 +108,5 @@ public class CityActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

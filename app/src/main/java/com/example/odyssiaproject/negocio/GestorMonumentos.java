@@ -1,7 +1,5 @@
 package com.example.odyssiaproject.negocio;
 
-
-import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
 import com.example.odyssiaproject.singelton.ListaMonumentosSingelton;
 
@@ -17,35 +15,27 @@ public class GestorMonumentos {
         this.listaMonumentos.inicializar();
     }
 
-    // Listar todos los monumentos
+    // Para depuración: listar todos los monumentos
     public void listarTodosLosMonumentos() {
         for (Monumentos m : listaMonumentos.getListaMonumentos()) {
-            System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre() + " - " + m.getPrecio() + " - " + m.getHorario());
+            System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre() + " - " +
+                    m.getPrecio() + " - " + m.getHorario());
         }
     }
 
-    // Buscar un monumento por nombre
+    // Buscar monumentos por nombre
     public List<Monumentos> buscarMonumentoPorNombre(String nombre) {
         return listaMonumentos.getMonumentosByName(nombre);
     }
 
-    // Listar monumentos por ciudad
-    public void listarMonumentosPorCiudad(String ciudad) {
+    // Devuelve la lista de monumentos filtrada por ciudad
+    public List<Monumentos> obtenerMonumentosPorCiudad(String ciudad) {
         List<Monumentos> monumentosCiudad = new ArrayList<>();
-
         for (Monumentos m : listaMonumentos.getListaMonumentos()) {
             if (m.getCiudad().getNombre().equalsIgnoreCase(ciudad)) {
                 monumentosCiudad.add(m);
             }
         }
-
-        if (monumentosCiudad.isEmpty()) {
-            System.out.println("No hay monumentos en " + ciudad);
-        } else {
-            for (Monumentos m : monumentosCiudad) {
-                System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre()
-                        + " - " + m.getPrecio() + " - " + m.getHorario());
-            }
-        }
+        return monumentosCiudad;
     }
 }

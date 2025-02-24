@@ -1,23 +1,19 @@
 package com.example.odyssiaproject.singelton;
 
 import android.util.Log;
-
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
-import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaMonumentosSingelton {
 
     private static ListaMonumentosSingelton instance;
-
     private List<Monumentos> listaMonumentos;
-    private ListaMonumentosSingelton() {
-        super();
-    }
+
+    private ListaMonumentosSingelton() { }
+
     public static ListaMonumentosSingelton getInstance() {
         if (instance == null) {
             synchronized (ListaMonumentosSingelton.class) {
@@ -28,6 +24,7 @@ public class ListaMonumentosSingelton {
         }
         return instance;
     }
+
     public List<Monumentos> getMonumentosByName(String nombre) {
         List<Monumentos> resultado = new ArrayList<>();
         for (Monumentos m : listaMonumentos) {
@@ -37,6 +34,7 @@ public class ListaMonumentosSingelton {
         }
         return resultado;
     }
+
     public void inicializar() {
         listaMonumentos = new ArrayList<>();
         agregarMonumento("Plaza Mayor","Madrid","GRATIS","24h/dia");
@@ -86,8 +84,8 @@ public class ListaMonumentosSingelton {
         agregarMonumento("Museo Arqueológico de Thera", "Santorini", "Desde 6€", "08:30-15:30");
         agregarMonumento("Sitio Arqueológico de Akrotiri", "Santorini", "Desde 12 €", "08:00-15:00");
         agregarMonumento("Castillo de Oia", "Santorini", "GRATIS", "24/dia");
-        // Imprime el último monumento agregado en los logs.
-        Log.i("ListaPromocionesSingleton", "tamaño lista" + listaMonumentos.size());
+
+        Log.i("ListaPromocionesSingleton", "tamaño lista: " + listaMonumentos.size());
     }
 
     private void agregarMonumento(String nombreMonumento, String nombreCiudad, String precio, String horario) {
@@ -101,15 +99,6 @@ public class ListaMonumentosSingelton {
         monumentos.setCiudad(ciudad);
 
         listaMonumentos.add(monumentos);
-    }
-    private List<Monumentos> obtenerMonumentosPorCiudad(String nombreCiudad) {
-        List<Monumentos> resultado = new ArrayList<>();
-        for (Monumentos m : listaMonumentos) {
-            if (m.getCiudad().getNombre().equalsIgnoreCase(nombreCiudad)) {
-                resultado.add(m);
-            }
-        }
-        return resultado;
     }
 
     public List<Monumentos> getListaMonumentos() {

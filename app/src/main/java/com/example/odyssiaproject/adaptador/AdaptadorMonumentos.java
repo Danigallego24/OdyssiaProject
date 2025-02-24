@@ -15,28 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Monumentos;
+
 import java.util.List;
 
 public class AdaptadorMonumentos extends RecyclerView.Adapter<AdaptadorMonumentos.ViewHolder> {
 
     private List<Monumentos> listaMonumentos;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imagenMonumento;
-        TextView tvNamePlace, tvPricePlace, tvTimePlace;
-        ImageButton like;
-        Button abrir;
-
-        public ViewHolder(View v) {
-            super(v);
-            imagenMonumento = v.findViewById(R.id.iwPlace);
-            tvNamePlace = v.findViewById(R.id.tvNamePlace);
-            tvPricePlace = v.findViewById(R.id.tvPricePlace);
-            tvTimePlace = v.findViewById(R.id.tvTimePlace);
-            like = v.findViewById(R.id.buttonLikePlace);
-            abrir = v.findViewById(R.id.buttonOpen);
-        }
-    }
 
     public AdaptadorMonumentos(List<Monumentos> listaMonumentos) {
         this.listaMonumentos = listaMonumentos;
@@ -44,13 +28,13 @@ public class AdaptadorMonumentos extends RecyclerView.Adapter<AdaptadorMonumento
 
     @NonNull
     @Override
-    public AdaptadorMonumentos.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_options, parent, false);
-        return new AdaptadorMonumentos.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorMonumentos.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Monumentos monumento = listaMonumentos.get(position);
 
         if (monumento == null) {
@@ -64,7 +48,6 @@ public class AdaptadorMonumentos extends RecyclerView.Adapter<AdaptadorMonumento
         holder.tvNamePlace.setText(monumento.getNombre());
         holder.tvPricePlace.setText("Precio: " + monumento.getPrecio());
         holder.tvTimePlace.setText("Horario: " + monumento.getHorario());
-
 
         holder.like.setOnTouchListener(new View.OnTouchListener() {
             private final GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(),
@@ -86,5 +69,22 @@ public class AdaptadorMonumentos extends RecyclerView.Adapter<AdaptadorMonumento
     @Override
     public int getItemCount() {
         return listaMonumentos.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imagenMonumento;
+        TextView tvNamePlace, tvPricePlace, tvTimePlace;
+        ImageButton like;
+        Button abrir;
+
+        public ViewHolder(View v) {
+            super(v);
+            imagenMonumento = v.findViewById(R.id.iwPlace);
+            tvNamePlace = v.findViewById(R.id.tvNamePlace);
+            tvPricePlace = v.findViewById(R.id.tvPricePlace);
+            tvTimePlace = v.findViewById(R.id.tvTimePlace);
+            like = v.findViewById(R.id.buttonLikePlace);
+            abrir = v.findViewById(R.id.buttonOpen);
+        }
     }
 }

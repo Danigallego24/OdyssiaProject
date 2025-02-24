@@ -62,6 +62,8 @@ public class CityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_city, container, false);
 
+    
+
         // Configurar RecyclerView de Promociones
         recyclerViewPromociones = root.findViewById(R.id.rwPromotions);
         recyclerViewPromociones.setHasFixedSize(true);
