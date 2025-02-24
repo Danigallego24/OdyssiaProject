@@ -1,32 +1,51 @@
 package com.example.odyssiaproject.negocio;
 
+
+import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
-import com.example.odyssiaproject.singelton.ListaMonumentosSingleton;
+import com.example.odyssiaproject.singelton.ListaMonumentosSingelton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorMonumentos {
 
-    private final ListaMonumentosSingleton listaMonumentos;
+    private ListaMonumentosSingelton listaMonumentos;
 
     public GestorMonumentos() {
-        // Inicializamos una sola vez el singleton
-        this.listaMonumentos = ListaMonumentosSingleton.getInstance();
+        this.listaMonumentos = ListaMonumentosSingelton.getInstance();
+        this.listaMonumentos.inicializar();
     }
 
-    public String imagenMonumento(Monumentos m) {
-
-        if (m == null || m.getNombre() == null) {
-            return "0";
+    // Listar todos los monumentos
+    public void listarTodosLosMonumentos() {
+        for (Monumentos m : listaMonumentos.getListaMonumentos()) {
+            System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre() + " - " + m.getPrecio() + " - " + m.getHorario());
         }
-        // Se busca el país en el singleton (podría hacerse para validar que exista)
-        Monumentos monumentos = listaMonumentos.getMonumentoByName(m.getNombre());
-        if (monumentos == null) {
-            return "0";
+    }
+
+    // Buscar un monumento por nombre
+    public List<Monumentos> buscarMonumentoPorNombre(String nombre) {
+        return listaMonumentos.getMonumentosByName(nombre);
+    }
+
+    // Listar monumentos por ciudad
+    public void listarMonumentosPorCiudad(String ciudad) {
+        List<Monumentos> monumentosCiudad = new ArrayList<>();
+
+        for (Monumentos m : listaMonumentos.getListaMonumentos()) {
+            if (m.getCiudad().getNombre().equalsIgnoreCase(ciudad)) {
+                monumentosCiudad.add(m);
+            }
         }
-        String nombreMonumento = monumentos.getNombre().toLowerCase();
 
-        // Si solo necesitas devolver el mismo nombre, este bloque es redundante.
-        // En su lugar, podrías devolver el nombre directamente, o mapearlo a un código.
-        return monumentos.getNombre();
-
+        if (monumentosCiudad.isEmpty()) {
+            System.out.println("No hay monumentos en " + ciudad);
+        } else {
+            for (Monumentos m : monumentosCiudad) {
+                System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre()
+                        + " - " + m.getPrecio() + " - " + m.getHorario());
+            }
+        }
     }
 }

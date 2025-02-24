@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.adaptador.AdaptadorMonumentos;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
+import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
+import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
-import com.example.odyssiaproject.singelton.ListaMonumentosSingleton;
+import com.example.odyssiaproject.singelton.ListaMonumentosSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -109,9 +111,23 @@ public class OptionFragment extends Fragment {
         recyclerViewOpciones.setHasFixedSize(true);
 
         // Obtener lista de países desde el Singleton
-        listaMonumentos = ListaMonumentosSingleton.getInstance().getListaMonumentos();
+        listaMonumentos = ListaMonumentosSingelton.getInstance().getListaMonumentos();
         if(listaMonumentos == null){
             listaMonumentos = new ArrayList<>(); // evitamois null pointer
+        }
+
+        if (getArguments() != null) {
+            String nombreCiudad = getArguments().getString("ciudad");
+            if (nombreCiudad != null) {
+                Ciudad ciudad = new Ciudad();
+                ciudad.setNombre(nombreCiudad);
+                // Si tienes más campos, inicialízalos aquí
+                Log.d("OPtionFragment", "Ciudadd inicializado: " + ciudad.getNombre());
+            } else {
+                Log.e("OPtionFragment", "El argumento 'ciudad' es null");
+            }
+        } else {
+            Log.e("OPtionFragment", "No se recibieron argumentos");
         }
 
         adaptadorMonumentos = new AdaptadorMonumentos(listaMonumentos);

@@ -36,7 +36,6 @@ import java.util.List;
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
     private List<Ciudad> listaCiudades;
     private GestorCiudades gestorCiudades;
-    private TextView tvNameCity, descriptionCity;
 
     /**
      * Constructor del adaptador.
@@ -82,6 +81,7 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         
         // Configura el click sobre el botón de imagen para abrir la OptionActivity
         holder.abrir.setOnClickListener(v -> {
+            Log.d("PULSAR","PULSADO");
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Ciudad ciudadClick = listaCiudades.get(pos);
@@ -89,9 +89,12 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
                 // 1. Crear fragmento de detalle
                 OptionFragment optionFragment = new OptionFragment();
 
-                // 2. Preparar argumentos (envía nombre del país)
+                // 2. Preparar argumentos (envía nombre de la ciudad)
                 Bundle args = new Bundle();
-                args.putString("ciudad", ciudadClick.getImagen());
+                // Convertir explícitamente a String para evitar el error de casteo
+                String nombreCiudad = (ciudadClick.getNombre() != null)
+                        ? ciudadClick.getNombre().toString() : "";
+                args.putString("ciudad", nombreCiudad);
                 optionFragment.setArguments(args);
 
                 // 3. Obtener contexto y navegar
@@ -110,6 +113,7 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
                 }
             }
         });
+
 
         holder.like.setOnTouchListener(new View.OnTouchListener() {
 
