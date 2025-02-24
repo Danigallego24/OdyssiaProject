@@ -102,6 +102,7 @@ public class OptionFragment extends Fragment {
 
         handler.postDelayed(scrollRunnable, 1000);
 
+
         // Configurar RecyclerView de Países
         recyclerViewOpciones = root.findViewById(R.id.rwOptions);
         recyclerViewOpciones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

@@ -59,7 +59,7 @@ public class OptionActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 // Log para verificar que el clic se está registrando
-                Log.d("MainActivity", "Botón de menú presionado");
+                Log.d("OptionActivity", "Botón de menú presionado");
 
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);

@@ -1,6 +1,8 @@
 package com.example.odyssiaproject.adaptador;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +23,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.odyssiaproject.ExplorationActivity;
 import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.entidad.Ciudad;
+import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.negocio.GestorCiudades;
+import com.example.odyssiaproject.ui.city.CityFragment;
+import com.example.odyssiaproject.ui.option.OptionFragment;
 
 import java.util.List;
 /**
@@ -29,7 +35,7 @@ import java.util.List;
  */
 public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.ViewHolder>{
     private List<Ciudad> listaCiudades;
-
+    private GestorCiudades gestorCiudades;
     private TextView tvNameCity, descriptionCity;
 
     /**
@@ -39,6 +45,7 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
      */
     public AdaptadorCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
+        this.gestorCiudades = new GestorCiudades();
     }
 
     @NonNull
@@ -73,16 +80,34 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
         holder.nombreCiudad.setText(ciudadActual.getNombre());
         holder.descripcionCiudad.setText(ciudadActual.getDescripcion());
         
-        // Configura el click sobre el botón de imagen para abrir la CityActivity
+        // Configura el click sobre el botón de imagen para abrir la OptionActivity
         holder.abrir.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Ciudad ciudadClick = listaCiudades.get(pos);
-                Log.i("DEBUG", "Ciudad enviado a ExplorationActivity: " + ciudadClick.getNombre());
-                // Inicia la Activity de ciudades y pasa el nombre del país (o también su ID si lo necesitas)
-                Intent intent = new Intent(v.getContext(), ExplorationActivity.class);
-                intent.putExtra("ciudad", ciudadClick.getNombre());
-                v.getContext().startActivity(intent);
+
+                // 1. Crear fragmento de detalle
+                OptionFragment optionFragment = new OptionFragment();
+
+                // 2. Preparar argumentos (envía nombre del país)
+                Bundle args = new Bundle();
+                args.putString("ciudad", ciudadClick.getImagen());
+                optionFragment.setArguments(args);
+
+                // 3. Obtener contexto y navegar
+                Context context = v.getContext();
+                if (context instanceof AppCompatActivity) {
+                    AppCompatActivity activity = (AppCompatActivity) context;
+
+                    // Validación para evitar crashes en estados inválidos
+                    if (!activity.isFinishing() && !activity.getSupportFragmentManager().isStateSaved()) {
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, optionFragment)  // Reemplaza el fragmento actual
+                                .addToBackStack(null)  // Permite retroceder con botón Back
+                                .commit();
+                    }
+                }
             }
         });
 
