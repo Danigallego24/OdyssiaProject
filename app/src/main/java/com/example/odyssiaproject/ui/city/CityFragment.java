@@ -39,7 +39,7 @@ public class CityFragment extends Fragment {
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
     private Pais pais;
-    private static final String ARG_NOMBRE_CIUDAD = "nombre_ciudad";
+    private static final String ARG_NOMBRE_CIUDAD = "ciudad";
     private String nombreCiudad;
     // Retrofit API para Firestore
     private ApiService apiService;

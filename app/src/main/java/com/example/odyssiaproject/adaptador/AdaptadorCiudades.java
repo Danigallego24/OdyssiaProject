@@ -78,7 +78,7 @@ public class AdaptadorCiudades extends RecyclerView.Adapter<AdaptadorCiudades.Vi
 
                 // Realizar la transacción de fragmentos
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new OptionFragment())
+                        .replace(R.id.fragment_container, new OptionFragment(ciudadClick.getNombre()))
                         .addToBackStack(null)
                         .commit();
             }

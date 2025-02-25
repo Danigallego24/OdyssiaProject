@@ -3,7 +3,6 @@ package com.example.odyssiaproject.singelton;
 import android.util.Log;
 import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
-import com.example.odyssiaproject.entidad.Promociones;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +24,38 @@ public class ListaMonumentosSingelton {
         return instance;
     }
 
-    public List<Monumentos> getMonumentosByName(String nombre) {
-        List<Monumentos> resultado = new ArrayList<>();
+    public Monumentos getMonumentosByName(String nombre) {
+        if(listaMonumentos == null){
+            Log.e("ListaMonumentoss", "Lista de monumentos nula");
+            return null;
+        }
         for (Monumentos m : listaMonumentos) {
             if (m.getNombre().equalsIgnoreCase(nombre)) {
-                resultado.add(m);
+                return m;
             }
         }
-        return resultado;
+        return null;
+
+    }
+    public List<Monumentos> obtenerMonumentosPorCiudad(String ciudad) {
+        List<Monumentos> monumentosCiudad = new ArrayList<>();
+        for (Monumentos m : listaMonumentos) {
+            Log.d("ListaMonumentos", "Monumento: " + m.getNombre() + ", Ciudad: " + m.getCiudad().getNombre());
+            if (m.getCiudad().getNombre().equalsIgnoreCase(ciudad)) {
+                monumentosCiudad.add(m);
+            }
+        }
+        Log.d("ListaMonumentos", "Monumentos encontrados: " + monumentosCiudad.size());
+        return monumentosCiudad;
+    }
+    public void listarTodosLosMonumentos() {
+        for (Monumentos m : getListaMonumentos()) {
+            System.out.println(m.getNombre() + " - " + m.getCiudad().getNombre() + " - " +
+                    m.getPrecio() + " - " + m.getHorario());
+        }
     }
 
-    public void inicializar() {
+        public void inicializar() {
         listaMonumentos = new ArrayList<>();
         agregarMonumento("Plaza Mayor","Madrid","GRATIS","24h/dia");
         agregarMonumento("Puerta de Alcalá","Madrid","GRATIS","24h/dia");

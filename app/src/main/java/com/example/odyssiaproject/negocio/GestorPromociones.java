@@ -18,7 +18,7 @@ public class GestorPromociones {
 
         if(promocion == null){
             Log.e("GestorPromociones", "Promocio es null" +  p.getId());
-            return -1;// Valor de error
+            return -1;
         }
 
         if(promocion.getId() == 1){
