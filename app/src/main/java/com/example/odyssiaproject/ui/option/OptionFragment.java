@@ -19,9 +19,12 @@ import com.example.odyssiaproject.R;
 import com.example.odyssiaproject.adaptador.AdaptadorCiudades;
 import com.example.odyssiaproject.adaptador.AdaptadorMonumentos;
 import com.example.odyssiaproject.adaptador.AdaptadorPromociones;
+import com.example.odyssiaproject.entidad.Ciudad;
 import com.example.odyssiaproject.entidad.Monumentos;
+import com.example.odyssiaproject.entidad.Pais;
 import com.example.odyssiaproject.entidad.Promociones;
 import com.example.odyssiaproject.negocio.GestorMonumentos;
+import com.example.odyssiaproject.singelton.ListaMonumentosSingelton;
 import com.example.odyssiaproject.singelton.ListaPromocionesSingelton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +41,12 @@ public class OptionFragment extends Fragment {
     private AdaptadorMonumentos adaptadorMonumentos;
     private Handler handler = new Handler();
     private int scrollSpeed = 10;
+    private Ciudad ciudad;
+    private String ciu;
+    public OptionFragment(String ciudad){
+        this.ciu = ciudad;
+
+    }
 
     private final Runnable scrollRunnable = new Runnable() {
         @Override
@@ -51,13 +60,6 @@ public class OptionFragment extends Fragment {
     };
 
     // Método de fábrica para crear una nueva instancia pasando el nombre de la ciudad
-    public static OptionFragment newInstance(String ciudad) {
-        OptionFragment fragment = new OptionFragment();
-        Bundle args = new Bundle();
-        args.putString("ciudad", ciudad);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Nullable
     @Override
@@ -99,26 +101,28 @@ public class OptionFragment extends Fragment {
         recyclerViewMonumentos.setHasFixedSize(true);
         recyclerViewMonumentos.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
+
+
+
+
         // Recuperar el nombre de la ciudad enviado como argumento y filtrar los monumentos
-        String nombreCiudad = "";
-        if (getArguments() != null) {
-            nombreCiudad = getArguments().getString("ciudad", "");
-            Log.d("OptionFragment", "Ciudad recibida: " + nombreCiudad);
-        } else {
+        if (ciu!= null) {
+            List<Monumentos> listaMonumentos = ListaMonumentosSingelton.getInstance().obtenerMonumentosPorCiudad(ciu);
+            if (listaMonumentos == null) {
+                listaMonumentos = new ArrayList<>();
+            }
+            if (ciu != null) {
+                ciudad = new Ciudad();
+                ciudad.setNombre(ciu);
+                Log.d("OptionFragment", "Ciudad recibida: " + ciu);
+                adaptadorMonumentos = new AdaptadorMonumentos(listaMonumentos);
+                recyclerViewMonumentos.setAdapter(adaptadorMonumentos);
+            } else {
+            Log.e("OptionFragment", "El argumento 'ciudad' es null");
+            }
+        }else{
             Log.e("OptionFragment", "No se recibieron argumentos");
         }
-
-        List<Monumentos> listaMonumentos;
-        if (!nombreCiudad.isEmpty()) {
-            GestorMonumentos gestor = new GestorMonumentos();
-            listaMonumentos = gestor.obtenerMonumentosPorCiudad(nombreCiudad);
-        } else {
-            // Si no se recibe ciudad, se muestran todos los monumentos
-            listaMonumentos = new ArrayList<>();
-        }
-
-        adaptadorMonumentos = new AdaptadorMonumentos(listaMonumentos);
-        recyclerViewMonumentos.setAdapter(adaptadorMonumentos);
 
         return root;
     }
